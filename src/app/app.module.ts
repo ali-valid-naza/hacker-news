@@ -8,6 +8,7 @@ import { MaterialModule } from '../material.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CacheInterceptor } from './interceptors/global-http-caching/cache.interceptor';
 import { GlobalHttpErrorHandlerInterceptor } from './interceptors/global-http-error-handler/global-http-error-handler.interceptor';
+import { GlobalHttpLoaderInterceptor } from './interceptors/global-http-loader/global-http-loader.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,11 @@ import { GlobalHttpErrorHandlerInterceptor } from './interceptors/global-http-er
     {
       provide: HTTP_INTERCEPTORS,
       useClass: GlobalHttpErrorHandlerInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpLoaderInterceptor,
       multi: true,
     },
   ],
