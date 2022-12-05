@@ -10,11 +10,13 @@ import { CacheInterceptor } from './interceptors/global-http-caching/cache.inter
 import { GlobalHttpErrorHandlerInterceptor } from './interceptors/global-http-error-handler/global-http-error-handler.interceptor';
 import { GlobalHttpLoaderInterceptor } from './interceptors/global-http-loader/global-http-loader.interceptor';
 import { NewsListComponent } from './components/news-list/news-list.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NewsListComponent
+    NewsListComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,

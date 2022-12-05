@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UnsubscribeService {
+export class UnsubscribeService extends Observable<void> implements OnDestroy {
   readonly ngUnsubscribe$ = new Subject<void>();
 
   constructor() {
