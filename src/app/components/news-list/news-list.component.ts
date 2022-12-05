@@ -5,9 +5,11 @@ import { LoadingService } from "../../services/utility/loading-service/loading.s
 import { TransitDataService } from "../../services/utility/transit-data-service/transit-data.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
-import { FRONT_PAGE_URL_PER_PAGE_0,
-  TAGS_FRONT_PAGE, TAGS_STORY,
-  URL_HITS_PER_PAGE, } from "../../app.constants";
+import {
+  FRONT_PAGE_URL_PER_PAGE_0, SEARCH_PER_AGE_0,
+  TAGS_FRONT_PAGE, TAGS_QUERY, TAGS_STORY,
+  URL_HITS_PER_PAGE,
+} from "../../app.constants";
 
 @Component({
   selector: 'app-news-list',
@@ -27,6 +29,10 @@ export class NewsListComponent implements OnInit, AfterViewInit {
     'url', 'num_comments', 'created_at',
   ];
   previousUrl: string = 'http://hn.algolia.com/api/v1/search_by_date?tags=story';
+
+  searchUrlPerPage0 = SEARCH_PER_AGE_0;
+
+  tagQuery = TAGS_QUERY;
 
   dataSource = new MatTableDataSource<News>();
 
@@ -75,6 +81,25 @@ export class NewsListComponent implements OnInit, AfterViewInit {
 
             this.transitData(this.dataSource.data);
           });
+      });
+  }
+
+
+
+  devGetSearchQuery(searchQuery: string) {
+    this.getNewsListService
+      .getParametersFrontPage(`${this.searchUrlPerPage0}${searchQuery}`)
+      .subscribe((v) => {
+        this.getNewsListService
+          .getNewsBySearchQuery(this.urlHitsPerPage,
+            v.nbHits, this.tagQuery, searchQuery).subscribe(v => {
+          this.dataSource.data =
+            v.hits
+              .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+          this.dataSource.paginator = this.paginator;
+
+          this.transitData(this.dataSource.data);
+        });
       });
   }
 

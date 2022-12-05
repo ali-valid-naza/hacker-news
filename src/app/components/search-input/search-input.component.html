@@ -1,1 +1,16 @@
-<p>search-input works!</p>
+<mat-form-field class="search-full-width">
+  <mat-label>For Searching Please Type Request</mat-label>
+  <input matInput
+         placeholder="Search"
+         value=""
+         #newSearchQuery
+  >
+</mat-form-field>
+
+<button
+  mat-raised-button
+  (click)="addNewSearchQuery(newSearchQuery.value)"
+>
+  Go Search
+</button>
+
