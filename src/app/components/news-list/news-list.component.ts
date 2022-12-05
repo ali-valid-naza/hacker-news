@@ -53,6 +53,7 @@ export class NewsListComponent implements OnInit, AfterViewInit {
         this.getNewsListService
           .getAllFrontNews(this.urlHitsPerPage, v.nbHits, this.tagsFrontPage)
           .subscribe(v => {
+            console.log(v.hits);
             this.dataSource.data = v.hits;
             this.dataSource.paginator = this.paginator;
 
@@ -67,8 +68,10 @@ export class NewsListComponent implements OnInit, AfterViewInit {
         this.getNewsListService
           .getAllFrontNews(this.urlHitsPerPage, v.nbHits, this.urlStoryTags)
           .subscribe(v => {
+            console.log(v.hits);
             this.dataSource.data =
-              v.hits.filter((v) => new Date().getTime() - new Date(v.created_at).getTime() > 86400000)
+              v.hits
+                .filter((v) => !v._tags.includes('front_page'))
                 .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
             this.dataSource.paginator = this.paginator;
 
