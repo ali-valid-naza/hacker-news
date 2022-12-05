@@ -3,6 +3,16 @@
   [mode]="'indeterminate'">
 </mat-progress-spinner>
 
+<a
+  [routerLink]="['', ]"
+   routerLinkActive="active"
+   ariaCurrentWhenActive="page"
+>
+  <button mat-raised-button>
+    On main page
+  </button>
+</a>
+
 <h1 class="headline-1">{{ newsTitle }}</h1>
 
 <div class="body-2" *ngIf="storyText !== null && storyText !== 'null' && storyText !== undefined">
