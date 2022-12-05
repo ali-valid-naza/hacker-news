@@ -83,11 +83,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this.getComments
       .getComments(this.commentsNewsUrl,
         this.numberCommentsOfNews,
-        this.newsObjectID,).subscribe(v => {
-      console.log( v);
-          this.dataSource.data = v;
-      }
-    );
+        this.newsObjectID,).subscribe(v => this.dataSource.data = v);
 
     sessionStorage.getItem(this.newsObjectID) ?
       this.storyText = sessionStorage.getItem(this.newsObjectID)
