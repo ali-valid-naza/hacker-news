@@ -4,7 +4,7 @@
 </mat-progress-spinner>
 
 <button
-  (click)="fetchPreviousData()"
+  (click)="devMethodPreviousNews(dataSource)"
   mat-raised-button
 >
   Previous news
@@ -17,11 +17,15 @@
   Actual news
 </button>
 
-<app-search-input
-  (newSearchQueryEvent)="devGetSearchQuery($event)"
-></app-search-input>
+<!--<app-search-input-->
+<!--  (newSearchQueryEvent)="devGetSearchQuery($event)"-->
+<!--&gt;</app-search-input>-->
 
 <div class="mat-elevation-z8">
+  <mat-paginator [pageSizeOptions]="[20, 10, 5,]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
   <table mat-table [dataSource]="dataSource">
 
     <ng-container matColumnDef="title">
@@ -86,9 +90,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-  <mat-paginator [pageSizeOptions]="[20, 10, 5,]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
 </div>

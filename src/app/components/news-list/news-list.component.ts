@@ -46,65 +46,75 @@ export class NewsListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.fetchActualData(this.frontPageUrlPerPage0);
+    this.devMethodFrontNews(this.dataSource);
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  fetchActualData(frontPageUrlPerPage0: string) {
-    this.getNewsListService.getParametersFrontPage(frontPageUrlPerPage0)
-      .subscribe(v => {
-        this.getNewsListService
-          .getAllFrontNews(this.urlHitsPerPage, v.nbHits, this.tagsFrontPage)
-          .subscribe(v => {
-            this.dataSource.data = v.hits;
-            this.dataSource.paginator = this.paginator;
+  // fetchActualData(frontPageUrlPerPage0: string) {
+  //   this.getNewsListService.getParametersFrontPage(frontPageUrlPerPage0)
+  //     .subscribe(v => {
+        // this.getNewsListService
+        //   .getAllFrontNews(this.urlHitsPerPage, v.nbHits, this.tagsFrontPage)
+        //   .subscribe(v => {
+        //     this.dataSource.data = v.hits;
+        //     this.dataSource.paginator = this.paginator;
+        //
+        //     this.transitData(this.dataSource.data);
+        //   });
+  //     });
+  // }
 
-            this.transitData(this.dataSource.data);
-          });
-      });
+  // fetchPreviousData() {
+  //   this.getNewsListService.getParametersFrontPage(this.previousUrl)
+  //     .subscribe(v => {
+  //       this.getNewsListService
+  //         .getAllFrontNews(this.urlHitsPerPage, v.nbHits, this.urlStoryTags)
+  //         .subscribe(v => {
+  //           this.dataSource.data =
+  //             v.hits
+  //               .filter((v) => !v._tags.includes('front_page'))
+  //               .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+  //           this.dataSource.paginator = this.paginator;
+  //
+  //           this.transitData(this.dataSource.data);
+  //         });
+  //     });
+  // }
+
+
+  // devGetSearchQuery(searchQuery: string) {
+  //   this.getNewsListService
+  //     .getParametersFrontPage(`${this.searchUrlPerPage0}${searchQuery}`)
+  //     .subscribe((v) => {
+  //       this.getNewsListService
+  //         .getNewsBySearchQuery(this.urlHitsPerPage,
+  //           v.nbHits, this.tagQuery, searchQuery).subscribe(v => {
+  //         this.dataSource.data =
+  //           v.hits
+  //             .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+  //         this.dataSource.paginator = this.paginator;
+  //
+  //         this.transitData(this.dataSource.data);
+  //       });
+  //     });
+  // }
+
+  // transitData(v: News[]) {
+  //   v.forEach(v => this.mapNewsObjectIdNewsText.set(v.objectID, v.story_text));
+  //   this.transitDataService.emitData(this.mapNewsObjectIdNewsText);
+  // }
+
+  devMethodFrontNews(dataSource: MatTableDataSource<News>) {
+    this.getNewsListService.devFetchFrontNews(dataSource)
+  }
+  devMethodPreviousNews(dataSource: MatTableDataSource<News>) {
+    this.getNewsListService.devFetchPreviousData(dataSource)
   }
 
-  fetchPreviousData() {
-    this.getNewsListService.getParametersFrontPage(this.previousUrl)
-      .subscribe(v => {
-        this.getNewsListService
-          .getAllFrontNews(this.urlHitsPerPage, v.nbHits, this.urlStoryTags)
-          .subscribe(v => {
-            this.dataSource.data =
-              v.hits
-                .filter((v) => !v._tags.includes('front_page'))
-                .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
-            this.dataSource.paginator = this.paginator;
+  devMethodSearchQuery(searchQuery: string, dataSource: MatTableDataSource<News>) {
 
-            this.transitData(this.dataSource.data);
-          });
-      });
-  }
-
-
-
-  devGetSearchQuery(searchQuery: string) {
-    this.getNewsListService
-      .getParametersFrontPage(`${this.searchUrlPerPage0}${searchQuery}`)
-      .subscribe((v) => {
-        this.getNewsListService
-          .getNewsBySearchQuery(this.urlHitsPerPage,
-            v.nbHits, this.tagQuery, searchQuery).subscribe(v => {
-          this.dataSource.data =
-            v.hits
-              .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
-          this.dataSource.paginator = this.paginator;
-
-          this.transitData(this.dataSource.data);
-        });
-      });
-  }
-
-  transitData(v: News[]) {
-    v.forEach(v => this.mapNewsObjectIdNewsText.set(v.objectID, v.story_text));
-    this.transitDataService.emitData(this.mapNewsObjectIdNewsText);
   }
 }
