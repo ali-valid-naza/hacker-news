@@ -4,8 +4,14 @@ import { News, NewsResponse } from "../../types";
 import { takeUntil } from "rxjs/operators";
 import { UnsubscribeService } from "../utility/unsubscribe-service/unsubscribe.service";
 import { MatTableDataSource } from '@angular/material/table';
-import { FRONT_PAGE_URL_PER_PAGE_0, TAGS_FRONT_PAGE, TAGS_STORY, URL_HITS_PER_PAGE } from '../../app.constants';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  FRONT_PAGE_URL_PER_PAGE_0, PREVIOUS_URL_NEWS,
+  SEARCH_PER_AGE_0,
+  TAGS_FRONT_PAGE,
+  TAGS_QUERY,
+  TAGS_STORY,
+  URL_HITS_PER_PAGE
+} from '../../app.constants';
 import { TransitDataService } from '../utility/transit-data-service/transit-data.service';
 
 
@@ -15,12 +21,15 @@ import { TransitDataService } from '../utility/transit-data-service/transit-data
 export class GetNewsListService {
   protected ngUnsubscribe$: UnsubscribeService;
 
-  frontPageUrlPerPage0 = FRONT_PAGE_URL_PER_PAGE_0;
-  urlHitsPerPage = URL_HITS_PER_PAGE;
-  tagsFrontPage = TAGS_FRONT_PAGE;
+  frontPageUrlPerPage0: string = FRONT_PAGE_URL_PER_PAGE_0;
+  urlHitsPerPage: string = URL_HITS_PER_PAGE;
+  tagsFrontPage: string = TAGS_FRONT_PAGE;
+  previousUrl: string = PREVIOUS_URL_NEWS;
+  urlStoryTags: string = TAGS_STORY;
+  searchUrlPerPage0: string = SEARCH_PER_AGE_0;
+  tagQuery: string = TAGS_QUERY;
+
   mapNewsObjectIdNewsText: any = new Map();
-  previousUrl: string = 'http://hn.algolia.com/api/v1/search_by_date?tags=story';
-  urlStoryTags = TAGS_STORY;
 
   constructor(
     private http: HttpClient,
@@ -56,7 +65,7 @@ export class GetNewsListService {
       .pipe(takeUntil(this.ngUnsubscribe$));
   }
 
-  devFetchFrontNews(dataSource: MatTableDataSource<News>) {
+  fetchFrontNews(dataSource: MatTableDataSource<News>) {
     this.getParametersFrontPage(
       this.frontPageUrlPerPage0,
       dataSource
@@ -65,12 +74,13 @@ export class GetNewsListService {
         this.getAllFrontNews(this.urlHitsPerPage, v.nbHits, this.tagsFrontPage)
           .subscribe(v => {
             dataSource.data = v.hits;
+
             this.transitData(dataSource.data);
           });
       });
   }
 
-  devFetchPreviousData(dataSource: MatTableDataSource<News>) {
+  fetchPreviousNews(dataSource: MatTableDataSource<News>) {
     this.getParametersFrontPage(
       this.previousUrl,
       dataSource
@@ -81,8 +91,26 @@ export class GetNewsListService {
             dataSource.data = v.hits
               .filter((v) => !v._tags.includes('front_page'))
               .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+
             this.transitData(dataSource.data);
           });
+      });
+  }
+
+  fetchNewsByQuery(searchQuery: string, dataSource: MatTableDataSource<News>) {
+    this.getParametersFrontPage(
+      `${this.searchUrlPerPage0}${searchQuery}`,
+      dataSource
+    ).pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(v => {
+        this.getNewsBySearchQuery(this.urlHitsPerPage,
+          v.nbHits, this.tagQuery, searchQuery).subscribe(v => {
+          dataSource.data =
+            v.hits
+              .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+
+          this.transitData(dataSource.data);
+        });
       });
   }
 

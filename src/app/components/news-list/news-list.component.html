@@ -4,7 +4,7 @@
 </mat-progress-spinner>
 
 <button
-  (click)="devMethodPreviousNews(dataSource)"
+  (click)="getPreviousNews(dataSource)"
   mat-raised-button
 >
   Previous news
@@ -17,9 +17,9 @@
   Actual news
 </button>
 
-<!--<app-search-input-->
-<!--  (newSearchQueryEvent)="devGetSearchQuery($event)"-->
-<!--&gt;</app-search-input>-->
+<app-search-input
+  (newSearchQueryEvent)="getNewsBySearchQuery($event, dataSource)"
+></app-search-input>
 
 <div class="mat-elevation-z8">
   <mat-paginator [pageSizeOptions]="[20, 10, 5,]"
