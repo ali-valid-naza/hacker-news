@@ -27,7 +27,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
       title: node.title,
       url: node.url,
       author: node.author,
-      points: node.points,
+      _points: node._points,
       story_text: node.story_text,
       num_comments: node.num_comments,
       story_id: node.story_id,
@@ -83,7 +83,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
     this.getComments
       .getComments(this.commentsNewsUrl,
         this.numberCommentsOfNews,
-        this.newsObjectID,).subscribe(v => this.dataSource.data = v
+        this.newsObjectID,).subscribe(v => {
+      console.log( v);
+          this.dataSource.data = v;
+      }
     );
 
     sessionStorage.getItem(this.newsObjectID) ?

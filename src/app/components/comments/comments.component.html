@@ -28,7 +28,7 @@
       <p [innerHTML]="node.comment_text"></p>
       <span>Author is: {{ node.author }}</span>&nbsp;
       <span>Date: {{ node.created_at | date }}</span>&nbsp;
-      <span>Points are: {{ node.points }}</span>  <!-- todo -->
+      <span *ngIf="node._points !== undefined && node._points !== null && node._points !== 'null'">Points are: {{ node._points }}</span>
     </div>
   </mat-tree-node>
   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
@@ -42,7 +42,7 @@
       <p [innerHTML]="node.comment_text"></p>
       <span>Author is: {{ node.author }}</span>&nbsp;
       <span>Date: {{ node.created_at | date }}</span>&nbsp;
-      <span>Points are: {{ node.points }}</span>  <!-- todo -->
+      <span *ngIf="node._points !== undefined && node._points !== null && node._points !== 'null'">Points are: {{ node._points }}</span>
     </div>
   </mat-tree-node>
 </mat-tree>

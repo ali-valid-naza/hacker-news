@@ -61,7 +61,7 @@ export interface Comment {
   title: string;
   url: string;
   author: string;
-  points: string;
+  _points: string;
   story_text: string;
   comment_text: string;
   num_comments: string;
@@ -103,7 +103,7 @@ export interface CommentNode {
   title: string;
   url: string;
   author: string;
-  points: string;
+  _points: string;
   story_text: string;
   comment_text: string;
   num_comments: string;
