@@ -15,7 +15,7 @@
 
 <h1 class="headline-1">{{ newsTitle }}</h1>
 
-<div class="body-2" *ngIf="storyText !== null && storyText !== 'null' && storyText !== undefined">
+<div class="body-2" *ngIf="storyText !== null && storyText !== 'null' && storyText !== undefined && storyText !== 'undefined'">
   <h2 class="headline-2">News text</h2>
   <p> {{ storyText }} </p>
 </div>
