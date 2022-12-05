@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { CacheResolvingService } from "../../services/utility/cache-resolve-service/cache-resolving.service";
 import { of } from "rxjs";
 import { tap } from "rxjs/operators";
-import { TIME_TO_LIVE } from "../../../app.constants";
+import { TIME_TO_LIVE } from "../../app.constants";
 
 @Injectable()
 export class CacheInterceptor implements HttpInterceptor {

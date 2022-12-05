@@ -1,0 +1,87 @@
+<mat-progress-spinner
+  *ngIf="$loading | async"
+  [mode]="'indeterminate'">
+</mat-progress-spinner>
+
+<button
+  (click)="fetchPreviousData()"
+  mat-raised-button
+>
+  Previous news
+</button>
+
+<button
+  (click)="ngOnInit()"
+  mat-raised-button
+>
+  Actual news
+</button>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title</th>
+      <td mat-cell *matCellDef="let element">
+        <a *ngIf="(element.num_comments !== null && element.num_comments !== 0) ||
+        element.story_text !== null"
+           [routerLink]="['/comments',
+            element.objectID,
+            element.num_comments,
+            element.title,
+            ]"
+           routerLinkActive="active"
+           ariaCurrentWhenActive="page"
+        >
+          {{element.title}}
+        </a>
+        <span *ngIf="(element.num_comments === null || element.num_comments === 0) &&
+        element.story_text === null">
+          {{element.title}}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="points">
+      <th mat-header-cell *matHeaderCellDef> Points</th>
+      <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef> created_at</th>
+      <td mat-cell *matCellDef="let element"> {{element.created_at | date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef> Author</th>
+      <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef> Source link</th>
+      <td mat-cell *matCellDef="let element">
+        <a
+          href="{{element.url}}"
+          target="_blank"
+        >
+          Source</a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="num_comments">
+      <th mat-header-cell *matHeaderCellDef> Comments</th>
+
+      <td mat-cell *matCellDef="let element">
+        {{element.num_comments ? element.num_comments : 0}}
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[20, 10, 5,]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
