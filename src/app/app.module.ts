@@ -11,12 +11,14 @@ import { GlobalHttpErrorHandlerInterceptor } from './interceptors/global-http-er
 import { GlobalHttpLoaderInterceptor } from './interceptors/global-http-loader/global-http-loader.interceptor';
 import { NewsListComponent } from './components/news-list/news-list.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { SearchInputComponent } from './components/search-input/search-input.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewsListComponent,
-    CommentsComponent
+    CommentsComponent,
+    SearchInputComponent
   ],
   imports: [
     BrowserModule,
