@@ -10,8 +10,6 @@ import { UnsubscribeService } from "../utility/unsubscribe-service/unsubscribe.s
 })
 export class GetNewsListService {
   protected ngUnsubscribe$: UnsubscribeService;
-  testNumberOfNews: number;
-
 
   constructor(
     private http: HttpClient,
