@@ -3,3 +3,12 @@
 mat-progress-spinner {
   @include loader-spinner();
 }
+
+span {
+  font-style: italic;
+}
+
+.body-2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
