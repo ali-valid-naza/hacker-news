@@ -23,8 +23,21 @@ export class GetNewsListService {
       .pipe(takeUntil(this.ngUnsubscribe$));
   }
 
-  getAllFrontNews(url: string, numberOfNews: number, urlFrontPage: string) {
+  getAllFrontNews(url: string,
+                  numberOfNews: number,
+                  urlFrontPage: string,
+                  ) {
     let modifyUrl: string = `${url}${numberOfNews}${urlFrontPage}`;
+    return this.http.get<NewsResponse>(modifyUrl)
+      .pipe(takeUntil(this.ngUnsubscribe$));
+  }
+
+  getNewsBySearchQuery(url: string,
+                  numberOfNews: number,
+                  requestTag: string,
+                  searchQuery: string,
+  ) {
+    let modifyUrl: string = `${url}${numberOfNews}${requestTag}${searchQuery}`;
     return this.http.get<NewsResponse>(modifyUrl)
       .pipe(takeUntil(this.ngUnsubscribe$));
   }

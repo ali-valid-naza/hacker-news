@@ -17,6 +17,10 @@
   Actual news
 </button>
 
+<app-search-input
+  (newSearchQueryEvent)="devGetSearchQuery($event)"
+></app-search-input>
+
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
 
@@ -38,6 +42,9 @@
         <span *ngIf="(element.num_comments === null || element.num_comments === 0) &&
         element.story_text === null">
           {{element.title}}
+        </span>
+        <span *ngIf="(element.title === null || element.title === 'null')">
+          There is no title for news...(((
         </span>
       </td>
     </ng-container>
