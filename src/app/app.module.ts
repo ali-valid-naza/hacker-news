@@ -9,7 +9,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CacheInterceptor } from './interceptors/global-http-caching/cache.interceptor';
 import { GlobalHttpErrorHandlerInterceptor } from './interceptors/global-http-error-handler/global-http-error-handler.interceptor';
 import { GlobalHttpLoaderInterceptor } from './interceptors/global-http-loader/global-http-loader.interceptor';
-import { NewsListComponent } from './components/news-list/news-list.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
 import { FrontNewsComponent } from './components/front-news/front-news.component';
@@ -20,7 +19,6 @@ import { MainNavigationComponent } from './components/main-navigation/main-navig
 @NgModule({
   declarations: [
     AppComponent,
-    NewsListComponent,
     CommentsComponent,
     SearchInputComponent,
     FrontNewsComponent,
