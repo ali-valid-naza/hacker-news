@@ -50,7 +50,6 @@ export class GetNewsListService {
                   urlFrontPage: string,
   ) {
     let modifyUrl: string = `${url}${numberOfNews}${urlFrontPage}`;
-    console.log(modifyUrl);
     return this.http.get<NewsResponse>(modifyUrl)
       .pipe(takeUntil(this.ngUnsubscribe$));
   }
