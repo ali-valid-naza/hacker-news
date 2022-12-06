@@ -12,13 +12,21 @@ import { GlobalHttpLoaderInterceptor } from './interceptors/global-http-loader/g
 import { NewsListComponent } from './components/news-list/news-list.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
+import { FrontNewsComponent } from './components/front-news/front-news.component';
+import { PreviousNewsComponent } from './components/previous-news/previous-news.component';
+import { ListNewsComponent } from './components/list-news/list-news.component';
+import { MainNavigationComponent } from './components/main-navigation/main-navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewsListComponent,
     CommentsComponent,
-    SearchInputComponent
+    SearchInputComponent,
+    FrontNewsComponent,
+    PreviousNewsComponent,
+    ListNewsComponent,
+    MainNavigationComponent
   ],
   imports: [
     BrowserModule,

@@ -3,19 +3,14 @@
   [mode]="'indeterminate'">
 </mat-progress-spinner>
 
-<a
-  [routerLink]="['', ]"
-   routerLinkActive="active"
-   ariaCurrentWhenActive="page"
->
-  <button mat-raised-button>
-    On main page
-  </button>
+<a [routerLink]="['', ]">
+  <button mat-raised-button>On main page</button>
 </a>
 
 <h1 class="headline-1">{{ newsTitle }}</h1>
 
-<div class="body-2" *ngIf="storyText !== null && storyText !== 'null' && storyText !== undefined && storyText !== 'undefined'">
+<div class="body-2"
+     *ngIf="storyText !== null && storyText !== 'null' && storyText !== undefined && storyText !== 'undefined'">
   <h2 class="headline-2">News text</h2>
   <p> {{ storyText }} </p>
 </div>
@@ -28,7 +23,8 @@
       <p [innerHTML]="node.comment_text"></p>
       <span>Author is: {{ node.author }}</span>&nbsp;
       <span>Date: {{ node.created_at | date }}</span>&nbsp;
-      <span *ngIf="node._points !== undefined && node._points !== null && node._points !== 'null'">Points are: {{ node._points }}</span>
+      <span
+        *ngIf="node._points !== undefined && node._points !== null && node._points !== 'null'">Points are: {{ node._points }}</span>
     </div>
   </mat-tree-node>
   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
@@ -42,7 +38,8 @@
       <p [innerHTML]="node.comment_text"></p>
       <span>Author is: {{ node.author }}</span>&nbsp;
       <span>Date: {{ node.created_at | date }}</span>&nbsp;
-      <span *ngIf="node._points !== undefined && node._points !== null && node._points !== 'null'">Points are: {{ node._points }}</span>
+      <span
+        *ngIf="node._points !== undefined && node._points !== null && node._points !== 'null'">Points are: {{ node._points }}</span>
     </div>
   </mat-tree-node>
 </mat-tree>
