@@ -1,11 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { News, NewsResponse } from "../../types";
-import { takeUntil } from "rxjs/operators";
+import { takeUntil, tap } from "rxjs/operators";
 import { UnsubscribeService } from "../utility/unsubscribe-service/unsubscribe.service";
 import { MatTableDataSource } from '@angular/material/table';
 import {
-  FRONT_PAGE_URL_PER_PAGE_0, PREVIOUS_URL_NEWS,
+  FRONT_PAGE_URL_PER_PAGE_0,
+  PREVIOUS_URL_NEWS,
   SEARCH_PER_AGE_0,
   TAGS_FRONT_PAGE,
   TAGS_QUERY,
@@ -13,6 +14,7 @@ import {
   URL_HITS_PER_PAGE
 } from '../../app.constants';
 import { TransitDataService } from '../utility/transit-data-service/transit-data.service';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -30,6 +32,8 @@ export class GetNewsListService {
   tagQuery: string = TAGS_QUERY;
 
   mapNewsObjectIdNewsText: any = new Map();
+
+  devFrontNewsUrl: string = 'http://hn.algolia.com/api/v1/search?tags=front_page';
 
   constructor(
     private http: HttpClient,
@@ -116,5 +120,19 @@ export class GetNewsListService {
   transitData(v: News[]) {
     v.forEach(v => this.mapNewsObjectIdNewsText.set(v.objectID, v.story_text));
     this.transitDataService.emitData(this.mapNewsObjectIdNewsText);
+  }
+
+  // new vision
+  /*
+  * */
+
+  devGetFrontNews(page: number): Observable<NewsResponse> {
+    const href = 'http://hn.algolia.com/api/v1/search';
+    const tagFront = 'tags=front_page';
+
+    const requestUrl = `${href}?page=${page + 1}&${tagFront}`;
+    console.log(requestUrl);
+    return this.http.get(requestUrl)
+      .pipe(tap(console.log),);
   }
 }

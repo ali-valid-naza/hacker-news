@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommentsComponent } from './components/comments/comments.component';
 import { FrontNewsComponent } from './components/front-news/front-news.component';
 import { PreviousNewsComponent } from './components/previous-news/previous-news.component';
+import { DevNewsComponent } from './components/DEV/dev-news/dev-news.component';
 
 const routes: Routes = [
+  {path: 'dev', component: DevNewsComponent},
   {path: '', component: FrontNewsComponent},
   {path: 'previous', component: PreviousNewsComponent},
   {path: 'comments/:newsObjectId/:newsNumComments/:newsTitle', component: CommentsComponent},

@@ -13,6 +13,9 @@ import { finalize } from 'rxjs/operators';
 export class GlobalHttpLoaderInterceptor implements HttpInterceptor {
 
   constructor(private loader: LoadingService,) {}
+  /*todo
+  * maybe need works with methods hide and show in service with fetching data
+  * */
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.loader.show();
