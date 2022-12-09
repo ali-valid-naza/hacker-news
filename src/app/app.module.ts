@@ -17,6 +17,7 @@ import { ListNewsComponent } from './components/list-news/list-news.component';
 import { MainNavigationComponent } from './components/main-navigation/main-navigation.component';
 import { DevNewsComponent } from './components/DEV/dev-news/dev-news.component';
 import { BaseListComponent } from './components/DEV/base-list/base-list.component';
+import { DevPreviousNewsComponent } from './components/DEV/dev-previous-news/dev-previous-news.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { BaseListComponent } from './components/DEV/base-list/base-list.componen
     ListNewsComponent,
     MainNavigationComponent,
     DevNewsComponent,
-    BaseListComponent
+    BaseListComponent,
+    DevPreviousNewsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,11 +40,11 @@ import { BaseListComponent } from './components/DEV/base-list/base-list.componen
     NoopAnimationsModule,
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: CacheInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CacheInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: GlobalHttpErrorHandlerInterceptor,

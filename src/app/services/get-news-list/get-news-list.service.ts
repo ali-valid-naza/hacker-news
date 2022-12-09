@@ -126,11 +126,11 @@ export class GetNewsListService {
   /*
   * */
 
-  devGetFrontNews(page: number): Observable<NewsResponse> {
-    const href = 'http://hn.algolia.com/api/v1/search';
-    const tagFront = 'tags=front_page';
+  devGetFrontNews(url: string, tag: string, page: number): Observable<NewsResponse> {
+    // const href = 'http://hn.algolia.com/api/v1/search';
+    // const tagFront = 'tags=front_page';
 
-    const requestUrl = `${href}?page=${page + 1}&${tagFront}`;
+    const requestUrl = `${url}?page=${page + 1}&${tag}`;
     console.log(requestUrl);
     return this.http.get(requestUrl)
       .pipe(tap(console.log),);
