@@ -18,6 +18,7 @@ import { MainNavigationComponent } from './components/main-navigation/main-navig
 import { DevNewsComponent } from './components/DEV/dev-news/dev-news.component';
 import { BaseListComponent } from './components/DEV/base-list/base-list.component';
 import { DevPreviousNewsComponent } from './components/DEV/dev-previous-news/dev-previous-news.component';
+import { DevPollNewsComponent } from './components/DEV/dev-poll-news/dev-poll-news.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DevPreviousNewsComponent } from './components/DEV/dev-previous-news/dev
     MainNavigationComponent,
     DevNewsComponent,
     BaseListComponent,
-    DevPreviousNewsComponent
+    DevPreviousNewsComponent,
+    DevPollNewsComponent
   ],
   imports: [
     BrowserModule,
