@@ -122,7 +122,7 @@ export class GetNewsListService {
     this.transitDataService.emitData(this.mapNewsObjectIdNewsText);
   }
 
-  devGetFrontNews(url: string, tag: string, page: number): Observable<NewsResponse> {
+  getNews(url: string, tag: string, page: number): Observable<NewsResponse> {
     const requestUrl = `${url}?page=${page + 1}&${tag}`;
     return this.http.get(requestUrl)
       .pipe(tap(console.log),);

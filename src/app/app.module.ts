@@ -19,6 +19,8 @@ import { DevNewsComponent } from './components/DEV/dev-news/dev-news.component';
 import { BaseListComponent } from './components/DEV/base-list/base-list.component';
 import { DevPreviousNewsComponent } from './components/DEV/dev-previous-news/dev-previous-news.component';
 import { DevPollNewsComponent } from './components/DEV/dev-poll-news/dev-poll-news.component';
+import { DevMainNavigationComponent } from './components/DEV/dev-main-navigation/dev-main-navigation.component';
+import { PolloptNewsComponent } from './components/DEV/pollopt-news/pollopt-news.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { DevPollNewsComponent } from './components/DEV/dev-poll-news/dev-poll-ne
     DevNewsComponent,
     BaseListComponent,
     DevPreviousNewsComponent,
-    DevPollNewsComponent
+    DevPollNewsComponent,
+    DevMainNavigationComponent,
+    PolloptNewsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,11 +46,12 @@ import { DevPollNewsComponent } from './components/DEV/dev-poll-news/dev-poll-ne
     NoopAnimationsModule,
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: CacheInterceptor,
-      multi: true,
-    },
+    //todo  NG0100: Expression has changed after it was checked
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: CacheInterceptor,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: GlobalHttpErrorHandlerInterceptor,

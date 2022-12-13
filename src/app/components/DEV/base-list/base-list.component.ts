@@ -32,7 +32,7 @@ export class BaseListComponent implements AfterViewInit {
         startWith(null),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.getNewsListService.devGetFrontNews(
+          return this.getNewsListService.getNews(
             this.url,
             this.tag,
             this.paginator.pageIndex - 1,
