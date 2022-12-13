@@ -39,17 +39,31 @@ export class BaseListComponent implements AfterViewInit {
           ).pipe(catchError(() => of(null)));
         }),
         map(data => {
-          this.isLoadingResults = false;
-          this.isRateLimitReached = data === null;
+          // setTimeout(() => {
+          //   this.isLoadingResults = false;
+          //   this.isRateLimitReached = data === null;
+          // }, 0)
+          Promise.resolve().then(() => {
+            this.isLoadingResults = false;
+            this.isRateLimitReached = data === null;
+          })
 
           if (data === null) {
             return [];
           }
-          this.resultsLength = data.nbHits;
+          Promise.resolve().then(() => this.resultsLength = data.nbHits)
+          // setTimeout(() => {
+          //   this.resultsLength = data.nbHits;
+          // }, 0)
           return data.hits;
         }),
       )
-      .subscribe(data => (this.data = data));
+      .subscribe(data => {
+        setTimeout(() => {
+          this.data = data;
+        }, 0)
+        // this.data = data;
+      });
   }
 
   ngOnDestroy(): void {

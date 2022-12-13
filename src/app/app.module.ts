@@ -46,12 +46,11 @@ import { PolloptNewsComponent } from './components/DEV/pollopt-news/pollopt-news
     NoopAnimationsModule,
   ],
   providers: [
-    //todo  NG0100: Expression has changed after it was checked
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: CacheInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CacheInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: GlobalHttpErrorHandlerInterceptor,
