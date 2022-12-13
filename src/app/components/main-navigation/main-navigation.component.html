@@ -1,13 +1,19 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <h1>Hacker News</h1>
-    <a mat-list-item [routerLink]="['/previous',]">
+    <a mat-list-item [routerLink]="['/prev',]">
       <button mat-raised-button>Previous news</button>
     </a>
 
-    <a mat-list-item [routerLink]="['',]">
+    <a mat-list-item [routerLink]="['/news',]">
       <button mat-raised-button>Actual news</button>
+    </a>
+
+    <a mat-list-item [routerLink]="['/poll',]">
+      <button mat-raised-button>Poll news</button>
+    </a>
+    <a mat-list-item [routerLink]="['/pollopt',]">
+      <button mat-raised-button>Pollopt news</button>
     </a>
   </mat-toolbar-row>
 </mat-toolbar>
-

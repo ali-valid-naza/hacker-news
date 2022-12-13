@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,31 +10,23 @@ import { GlobalHttpErrorHandlerInterceptor } from './interceptors/global-http-er
 import { GlobalHttpLoaderInterceptor } from './interceptors/global-http-loader/global-http-loader.interceptor';
 import { CommentsComponent } from './components/comments/comments.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
-import { FrontNewsComponent } from './components/front-news/front-news.component';
+import { NewsComponent } from './components/news/news.component';
+import { BaseListComponent } from './components/base-list/base-list.component';
 import { PreviousNewsComponent } from './components/previous-news/previous-news.component';
-import { ListNewsComponent } from './components/list-news/list-news.component';
+import { PollNewsComponent } from './components/poll-news/poll-news.component';
 import { MainNavigationComponent } from './components/main-navigation/main-navigation.component';
-import { DevNewsComponent } from './components/DEV/dev-news/dev-news.component';
-import { BaseListComponent } from './components/DEV/base-list/base-list.component';
-import { DevPreviousNewsComponent } from './components/DEV/dev-previous-news/dev-previous-news.component';
-import { DevPollNewsComponent } from './components/DEV/dev-poll-news/dev-poll-news.component';
-import { DevMainNavigationComponent } from './components/DEV/dev-main-navigation/dev-main-navigation.component';
-import { PolloptNewsComponent } from './components/DEV/pollopt-news/pollopt-news.component';
+import { PolloptNewsComponent } from './components/pollopt-news/pollopt-news.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CommentsComponent,
     SearchInputComponent,
-    FrontNewsComponent,
-    PreviousNewsComponent,
-    ListNewsComponent,
-    MainNavigationComponent,
-    DevNewsComponent,
+    NewsComponent,
     BaseListComponent,
-    DevPreviousNewsComponent,
-    DevPollNewsComponent,
-    DevMainNavigationComponent,
+    PreviousNewsComponent,
+    PollNewsComponent,
+    MainNavigationComponent,
     PolloptNewsComponent
   ],
   imports: [

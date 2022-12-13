@@ -1,26 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { News } from '../../types';
-import { GetNewsListService } from '../../services/get-news-list/get-news-list.service';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { BaseListComponent } from '../base-list/base-list.component';
 
 @Component({
   selector: 'app-previous-news',
-  templateUrl: './previous-news.component.html',
-  styleUrls: ['./previous-news.component.scss']
+  templateUrl: '../base-list/base-list.component.html',
+  styleUrls: ['../base-list/base-list.component.scss']
 })
-export class PreviousNewsComponent implements OnInit {
-  dataSource = new MatTableDataSource<News>();
+export class PreviousNewsComponent extends BaseListComponent
+  implements AfterViewInit, OnDestroy {
+  override url: string = 'http://hn.algolia.com/api/v1/search_by_date'
+  override tag: string = 'tags=story'
 
-  constructor(
-    private getNewsListService: GetNewsListService,
-  ) {
+  override ngAfterViewInit(): void {
+  super.ngAfterViewInit();
   }
 
-  ngOnInit(): void {
-    this.getPreviousNews(this.dataSource);
-  }
-
-  getPreviousNews(dataSource: MatTableDataSource<News>) {
-    this.getNewsListService.fetchPreviousNews(dataSource);
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 }

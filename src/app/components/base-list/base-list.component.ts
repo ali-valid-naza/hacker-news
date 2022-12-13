@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { News } from '../../../types';
+import { News } from '../../types';
 import { MatPaginator } from '@angular/material/paginator';
-import { GetNewsListService } from '../../../services/get-news-list/get-news-list.service';
+import { GetNewsListService } from '../../services/get-news-list/get-news-list.service';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { of, Subscription } from 'rxjs';
 
