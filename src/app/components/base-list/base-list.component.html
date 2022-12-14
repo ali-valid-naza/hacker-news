@@ -9,7 +9,11 @@
   </div>
   <mat-paginator
     [length]="resultsLength"
-    [pageSize]="20"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    (page)="handlePageEvent($event)"
+
+    [routerLink]="[routeUrl, pageIndex]"
     aria-label="Hacker news"></mat-paginator>
 
   <div class="example-table-container">

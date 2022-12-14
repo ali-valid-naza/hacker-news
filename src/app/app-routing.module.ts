@@ -7,10 +7,10 @@ import { PollNewsComponent } from './components/poll-news/poll-news.component';
 import { PolloptNewsComponent } from './components/pollopt-news/pollopt-news.component';
 
 const routes: Routes = [
-  {path: 'news', component: NewsComponent},
-  {path: 'poll', component: PollNewsComponent},
-  {path: 'pollopt', component: PolloptNewsComponent},
-  {path: 'prev', component: PreviousNewsComponent},
+  {path: 'news/:pageIndex', component: NewsComponent},
+  {path: 'poll/:pageIndex', component: PollNewsComponent},
+  {path: 'pollopt/:pageIndex', component: PolloptNewsComponent},
+  {path: 'prev/:pageIndex', component: PreviousNewsComponent},
   {path: '', component: NewsComponent},
   {path: 'comments/:newsObjectId/:newsNumComments/:newsTitle', component: CommentsComponent},
 ];
