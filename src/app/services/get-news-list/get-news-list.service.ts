@@ -124,7 +124,6 @@ export class GetNewsListService {
 
   getNews(url: string, tag: string, page: number): Observable<NewsResponse> {
     const requestUrl = `${url}?page=${page + 1}&${tag}`;
-    return this.http.get(requestUrl)
-      .pipe(tap(console.log),);
+    return this.http.get<NewsResponse>(requestUrl)
   }
 }
