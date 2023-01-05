@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { News, NewsResponse } from "../../types";
-import { takeUntil, tap } from "rxjs/operators";
+import { takeUntil } from "rxjs/operators";
 import { UnsubscribeService } from "../utility/unsubscribe-service/unsubscribe.service";
 import { MatTableDataSource } from '@angular/material/table';
 import {
@@ -33,8 +33,6 @@ export class GetNewsListService {
 
   mapNewsObjectIdNewsText: any = new Map();
 
-  devFrontNewsUrl: string = 'http://hn.algolia.com/api/v1/search?tags=front_page';
-
   constructor(
     private http: HttpClient,
     private transitDataService: TransitDataService,
@@ -53,7 +51,7 @@ export class GetNewsListService {
                   numberOfNews: number,
                   urlFrontPage: string,
   ) {
-    let modifyUrl: string = `${url}${numberOfNews}${urlFrontPage}`;
+    let modifyUrl: string = `${ url }${ numberOfNews }${ urlFrontPage }`;
     return this.http.get<NewsResponse>(modifyUrl)
       .pipe(takeUntil(this.ngUnsubscribe$));
   }
@@ -63,7 +61,7 @@ export class GetNewsListService {
                        requestTag: string,
                        searchQuery: string,
   ) {
-    let modifyUrl: string = `${url}${numberOfNews}${requestTag}${searchQuery}`;
+    let modifyUrl: string = `${ url }${ numberOfNews }${ requestTag }${ searchQuery }`;
     return this.http.get<NewsResponse>(modifyUrl)
       .pipe(takeUntil(this.ngUnsubscribe$));
   }
@@ -102,7 +100,7 @@ export class GetNewsListService {
 
   fetchNewsByQuery(searchQuery: string, dataSource: MatTableDataSource<News>) {
     this.getParametersFrontPage(
-      `${this.searchUrlPerPage0}${searchQuery}`,
+      `${ this.searchUrlPerPage0 }${ searchQuery }`,
       dataSource
     ).pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(v => {
@@ -123,7 +121,7 @@ export class GetNewsListService {
   }
 
   getNews(url: string, tag: string, page: number): Observable<NewsResponse> {
-    const requestUrl = `${url}?page=${page + 1}&${tag}`;
-    return this.http.get<NewsResponse>(requestUrl)
+    const requestUrl = `${ url }?page=${ page + 1 }&${ tag }`;
+    return this.http.get<NewsResponse>(requestUrl);
   }
 }

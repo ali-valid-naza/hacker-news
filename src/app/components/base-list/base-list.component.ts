@@ -37,8 +37,13 @@ export class BaseListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.route.url.subscribe((v) => {
-      this.pageIndex = Number(v[1].path);
-      this.routeUrl = `/${v[0].path}`;
+      if (v.length === 0) {
+        this.pageIndex = 0;
+        this.routeUrl = `/news`;
+      } else {
+        this.pageIndex = Number(v[1].path);
+        this.routeUrl = `/${v[0].path}`;
+      }
     });
   }
 
