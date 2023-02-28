@@ -1,0 +1,27 @@
+<div *ngIf="news$ | async as config">
+  <span>Total front news {{ config.nbHits }}</span>
+  <br>
+  <a>
+    <button>Prev</button>
+  </a>
+
+  <a>
+    <button>Next</button>
+  </a>
+
+  <div class="col-md-3">Show Results:
+    <button class="btn btn-light"
+            *ngFor="let pageSize of pageSizes"
+            [ngClass]="{'active': pageSize === selectedButton}">
+      {{ pageSize }}
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="news$ | async as newsResponse">
+  <div *ngFor="let news of newsResponse.hits">
+     <span>
+       {{ news.title }}
+     </span>
+  </div>
+</ng-container>
