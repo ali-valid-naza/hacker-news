@@ -2,16 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject, throwError } from 'rxjs';
 import { NewsResponse } from './types';
 import { HttpClient } from '@angular/common/http';
-import { catchError, scan, switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
   pageSizes = [2, 3, 5];
-  private configNewsFrontUrl: string = 'https://hn.algolia.com/api/v1/search?hitsPerPage=0&tags=front_page';
-  private newsFrontUrlFirstPage: string = 'http://hn.algolia.com/api/v1/search?page=0&tags=front_page';
-
   private newsUrl: string = 'http://hn.algolia.com/api/v1/search?';
 
   private pageIndexSubject: Subject<number> = new BehaviorSubject<number>(0);
@@ -22,13 +19,6 @@ export class NewsService {
 
   private newsTagSubject: BehaviorSubject<string> = new BehaviorSubject('front_page');
   newsTag$ = this.newsTagSubject.asObservable();
-
-  configNewsFront$: Observable<NewsResponse> = this.http.get<NewsResponse>(this.configNewsFrontUrl)
-    .pipe(
-      tap(response => console.log(JSON.stringify(response))),
-      // shareReplay(1),
-      catchError(this.handleError)
-    );
 
   news$ = combineLatest([
     this.newsTag$,
@@ -47,7 +37,8 @@ export class NewsService {
               }
           }
         )
-      )
+      ),
+      catchError(this.handleError)
     );
 
   constructor(private http: HttpClient) {

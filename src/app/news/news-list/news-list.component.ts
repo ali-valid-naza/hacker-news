@@ -11,7 +11,6 @@ export class NewsListComponent {
   pageSizes = this.newsService.pageSizes;
   selectedButton = 2;
 
-  configNewsFront$ = this.newsService.configNewsFront$;
   pageIndex$ = this.newsService.pageIndex$;
   news$ = this.newsService.news$;
 
