@@ -17,4 +17,9 @@ export class NewsListComponent {
 
   constructor(private newsService: NewsService) {
   }
+
+  setPageSize(pageSize: number): void {
+    this.selectedButton = pageSize;
+    this.newsService.changePageSize(pageSize);
+  }
 }

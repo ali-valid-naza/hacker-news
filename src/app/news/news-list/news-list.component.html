@@ -12,7 +12,9 @@
   <div class="col-md-3">Show Results:
     <button class="btn btn-light"
             *ngFor="let pageSize of pageSizes"
-            [ngClass]="{'active': pageSize === selectedButton}">
+            [ngClass]="{'active': pageSize === selectedButton}"
+            (click)="setPageSize(pageSize)"
+    >
       {{ pageSize }}
     </button>
   </div>

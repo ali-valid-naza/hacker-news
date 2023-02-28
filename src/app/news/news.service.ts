@@ -53,6 +53,13 @@ export class NewsService {
   constructor(private http: HttpClient) {
   }
 
+  // Page size was changed
+  changePageSize(size: number): void {
+    this.pageSizeSubject.next(size);
+    // When the page size changes, reset the page number.
+    this.incrementPageIndex(0);
+  }
+
   incrementPageIndex(index: number) {
     this.pageIndexSubject.next(index);
   }
