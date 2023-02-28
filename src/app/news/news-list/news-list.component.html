@@ -10,19 +10,15 @@
     <div class="row">
       <span>Total front news {{ view.news.nbHits }}</span>
       <br>
-      <a
-        (click)="setPage(-1)"
-        [routerLink]="['/news',  view.newsTag,]"
-      >
-        <button class="btn btn-light">Prev {{ view.currentPage }}</button>
-      </a>
-
-      <a
-        (click)="setPage(1)"
-        [routerLink]="['/news',  view.newsTag,]"
-      >
-        <button class="btn btn-light">Next  {{ view.currentPage }}</button>
-      </a>
+      <div class="col-md-3">
+        <button class="btn btn-light"
+                (click)="setPage(-1)"
+                [disabled]="disablePrevious$ | async"
+        >Prev {{ view.currentPage }}</button>
+        <button class="btn btn-light"
+                (click)="setPage(1)"
+        >Next  {{ view.currentPage }}</button>
+      </div>
 
       <div class="col-md-3">Show Results:
         <button class="btn btn-light"

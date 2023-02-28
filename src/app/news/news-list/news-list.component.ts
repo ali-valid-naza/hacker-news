@@ -1,10 +1,10 @@
-
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { map, tap, } from 'rxjs/operators';
 import { NewsService } from '../news.service';
 import { NewsResponse } from '../types';
+import { Observable } from 'rxjs';
 
 
 
@@ -23,6 +23,10 @@ export class NewsListComponent {
 
   currentPage$ = this.newsService.currentPage$;
 
+  disablePrevious$: Observable<boolean> = this.currentPage$
+    .pipe(
+      map(pageNumber => pageNumber === 0)
+    );
 
 
   view$ = combineLatest([
