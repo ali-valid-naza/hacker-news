@@ -1,6 +1,12 @@
+
 import { Component } from '@angular/core';
-import { NewsService } from '../news.service';
 import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs';
+import { map, } from 'rxjs/operators';
+import { NewsService } from '../news.service';
+import { NewsResponse } from '../types';
+
+
 
 @Component({
   selector: 'app-news-list',
@@ -15,8 +21,21 @@ export class NewsListComponent {
   newsTag$ = this.newsService.newsTag$;
   news$ = this.newsService.news$;
 
-  currentPage$ = this.newsService.currentPage$
-  currentPage: number = 0;
+  currentPage$ = this.newsService.currentPage$;
+
+
+
+  view$ = combineLatest([
+    this.currentPage$,
+    this.newsTag$,
+    this.news$,
+  ]).pipe(
+    // @ts-ignore
+    map(([currentPage, newsTag, news,]:
+           [number, string, NewsResponse]) => ({
+      currentPage, newsTag, news
+    }))
+  );
 
   constructor(
     route: ActivatedRoute,
