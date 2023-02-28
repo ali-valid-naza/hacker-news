@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { map, } from 'rxjs/operators';
+import { map, tap, } from 'rxjs/operators';
 import { NewsService } from '../news.service';
 import { NewsResponse } from '../types';
 
@@ -34,7 +34,8 @@ export class NewsListComponent {
     map(([currentPage, newsTag, news,]:
            [number, string, NewsResponse]) => ({
       currentPage, newsTag, news
-    }))
+    })),
+    tap((v) => console.log(v)),
   );
 
   constructor(
@@ -48,6 +49,7 @@ export class NewsListComponent {
 
   setPage(pageIndex: number) {
     this.newsService.incrementPageIndex(pageIndex);
+    // this.view$.subscribe(() =>)
   }
 
   setPageSize(pageSize: number): void {

@@ -60,7 +60,7 @@
           <td>{{ news.author }}</td>
           <td>{{ news.points }}</td>
           <td><a href="{{ news.url }}">{{ news.url }}</a></td>
-          <td>{{ news.num_comments }}</td>
+          <td><a [routerLink]="'/comment'">{{ news.num_comments }}</a></td>
         </tr>
         </tbody>
       </table>

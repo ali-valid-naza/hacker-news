@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject, throwError } from 'rxjs';
 import { NewsResponse } from './types';
 import { HttpClient } from '@angular/common/http';
-import { catchError, scan, switchMap, tap } from 'rxjs/operators';
+import { catchError, scan, share, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +11,10 @@ export class NewsService {
   pageSizes = [2, 3, 5];
   private newsUrl: string = 'http://hn.algolia.com/api/v1/search?';
 
-  private pageIndexSubject: Subject<number> = new BehaviorSubject<number>(0);
+  // @ts-ignore
+  private pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0)
 
-  private pageSizeSubject = new BehaviorSubject<number>(this.pageSizes[0]);
+  private pageSizeSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this.pageSizes[0]);
   pageSizeAction$ = this.pageSizeSubject.asObservable();
 
   private newsTagSubject: BehaviorSubject<string> = new BehaviorSubject('front_page');
@@ -21,18 +22,19 @@ export class NewsService {
 
   currentPage$ = this.pageIndexSubject
     .pipe(
+      // tap((v) => console.log(`currentPage$ before scan ${v}`)),
       scan((acc, one) => {
-        console.log('acc '+ acc, 'one ' + one);
         if (one === 0) {
-          console.log('if');
           return 0;
         }
         else {
-          console.log('acc + one ' + acc + one);
           return acc + one;
         }
-      })
+      }),
+      shareReplay(1),
+      // tap((v) => console.log(`currentPage$ after scan ${v}`)),
     );
+
 
   news$ = combineLatest([
     this.newsTag$,
@@ -40,7 +42,7 @@ export class NewsService {
     this.pageSizeAction$
   ])
     .pipe(
-      tap(console.log),
+      // tap(console.log),
       switchMap(([newsTag, pageNumber, pageSize,]) =>
         this.http.get<NewsResponse>(this.newsUrl, {
             params:
@@ -50,6 +52,8 @@ export class NewsService {
                 hitsPerPage: pageSize.toString(),
               }
           }
+        ).pipe(
+          tap((v) => console.log(v))
         )
       ),
       catchError(this.handleError)

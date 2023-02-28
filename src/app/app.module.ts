@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { NewsListComponent } from './news/news-list/news-list.component';
+import { CommentsTreeComponent } from './comments/comments-tree/comments-tree.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NewsListComponent
+    NewsListComponent,
+    CommentsTreeComponent
   ],
   imports: [
     BrowserModule,
