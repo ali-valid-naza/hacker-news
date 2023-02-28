@@ -11,7 +11,6 @@ export class NewsService {
   pageSizes = [2, 3, 5];
   private newsUrl: string = 'http://hn.algolia.com/api/v1/search?';
 
-  // @ts-ignore
   private pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0)
 
   private pageSizeSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this.pageSizes[0]);
@@ -71,6 +70,10 @@ export class NewsService {
 
   incrementPageIndex(index: number) {
     this.pageIndexSubject.next(index);
+  }
+
+  reinitializePageIndexSubject() {
+    this.pageIndexSubject.next(0);
   }
 
   setNewsTag(tag: string) {

@@ -4,25 +4,33 @@
     <li class="nav-item">
       <a class="nav-link"
          [routerLink]="['/news/front_page']"
-         routerLinkActive="active">Front News</a>
+         routerLinkActive="active"
+         (click)="reinitializePageIndexSubject()"
+      >Front News</a>
     </li>
     <li class="nav-item">
       <a class="nav-link"
          [routerLink]="['/news/story']"
          routerLinkActive="active"
-         [routerLinkActiveOptions]="{ exact : true}">Last News</a>
+         [routerLinkActiveOptions]="{ exact : true}"
+         (click)="reinitializePageIndexSubject()"
+      >Last News</a>
     </li>
     <li class="nav-item">
       <a class="nav-link"
          [routerLink]="['/news/poll']"
          routerLinkActive="active"
-         [routerLinkActiveOptions]="{ exact : true}">Poll</a>
+         [routerLinkActiveOptions]="{ exact : true}"
+         (click)="reinitializePageIndexSubject()"
+      >Poll</a>
     </li>
     <li class="nav-item">
       <a class="nav-link"
          [routerLink]="['/news/pollopt']"
          routerLinkActive="active"
-         [routerLinkActiveOptions]="{ exact : true}">Pollopt</a>
+         [routerLinkActiveOptions]="{ exact : true}"
+         (click)="reinitializePageIndexSubject()"
+      >Pollopt</a>
     </li>
   </ul>
 </nav>

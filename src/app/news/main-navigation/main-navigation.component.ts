@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NewsService } from '../news.service';
 
 @Component({
   selector: 'app-main-navigation',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class MainNavigationComponent {
   pageTitle = "Menu";
+  constructor(private newsService: NewsService) {
+  }
+
+  reinitializePageIndexSubject() {
+    this.newsService.reinitializePageIndexSubject()
+  }
 }
