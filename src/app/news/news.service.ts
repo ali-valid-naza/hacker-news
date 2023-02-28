@@ -55,6 +55,10 @@ export class NewsService {
     this.pageIndexSubject.next(index);
   }
 
+  setNewsTag(tag: string) {
+    this.newsTagSubject.next(tag);
+  }
+
   private handleError(err: any): Observable<never> {
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {
