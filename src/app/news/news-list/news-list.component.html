@@ -1,3 +1,4 @@
+<app-main-navigation></app-main-navigation>
 <div class="card"
      *ngIf="view$ | async as view"
 >
@@ -11,14 +12,14 @@
       <br>
       <a
         (click)="setPage(-1)"
-        [routerLink]="['/news',  view.newsTag, view.currentPage]"
+        [routerLink]="['/news',  view.newsTag,]"
       >
         <button class="btn btn-light">Prev {{ view.currentPage }}</button>
       </a>
 
       <a
         (click)="setPage(1)"
-        [routerLink]="['/news',  view.newsTag, view.currentPage]"
+        [routerLink]="['/news',  view.newsTag,]"
       >
         <button class="btn btn-light">Next  {{ view.currentPage }}</button>
       </a>

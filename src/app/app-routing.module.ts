@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NewsListComponent } from './news/news-list/news-list.component';
 import { CommentsTreeComponent } from './comments/comments-tree/comments-tree.component';
+import { MainNavigationComponent } from './news/main-navigation/main-navigation.component';
 
 const routes: Routes = [
-  {path: 'news/:newsTag/:pageIndex', component: NewsListComponent},
+  {path: '', component: MainNavigationComponent},
+  {path: 'news/:newsTag', component: NewsListComponent},
   {path: 'comment', component: CommentsTreeComponent},
 ];
 

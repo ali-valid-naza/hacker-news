@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand">{{pageTitle}}</a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/news/front_page']"
+         routerLinkActive="active">Front News</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/news/story']"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact : true}">Last News</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/news/poll']"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact : true}">Poll</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/news/pollopt']"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact : true}">Pollopt</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
