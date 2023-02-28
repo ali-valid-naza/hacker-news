@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject, throwError } from 'rxjs';
 import { NewsResponse } from './types';
 import { HttpClient } from '@angular/common/http';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { catchError, scan, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,6 @@ export class NewsService {
   private newsUrl: string = 'http://hn.algolia.com/api/v1/search?';
 
   private pageIndexSubject: Subject<number> = new BehaviorSubject<number>(0);
-  pageIndex$ = this.pageIndexSubject.asObservable();
 
   private pageSizeSubject = new BehaviorSubject<number>(this.pageSizes[0]);
   pageSizeAction$ = this.pageSizeSubject.asObservable();
@@ -20,9 +19,24 @@ export class NewsService {
   private newsTagSubject: BehaviorSubject<string> = new BehaviorSubject('front_page');
   newsTag$ = this.newsTagSubject.asObservable();
 
+  currentPage$ = this.pageIndexSubject
+    .pipe(
+      scan((acc, one) => {
+        console.log('acc '+ acc, 'one ' + one);
+        if (one === 0) {
+          console.log('if');
+          return 0;
+        }
+        else {
+          console.log('acc + one ' + acc + one);
+          return acc + one;
+        }
+      })
+    );
+
   news$ = combineLatest([
     this.newsTag$,
-    this.pageIndex$,
+    this.currentPage$,
     this.pageSizeAction$
   ])
     .pipe(

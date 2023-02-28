@@ -13,15 +13,22 @@ export class NewsListComponent {
   selectedButton = 2;
 
   newsTag$ = this.newsService.newsTag$;
-  pageIndex$ = this.newsService.pageIndex$;
   news$ = this.newsService.news$;
+
+  currentPage$ = this.newsService.currentPage$
+  currentPage: number = 0;
 
   constructor(
     route: ActivatedRoute,
-    private newsService: NewsService) {
+    public newsService: NewsService) {
     route.params.subscribe((v) => {
+      // console.log(v);
       this.newsService.setNewsTag(v['newsTag']);
     });
+  }
+
+  setPage(pageIndex: number) {
+    this.newsService.incrementPageIndex(pageIndex);
   }
 
   setPageSize(pageSize: number): void {

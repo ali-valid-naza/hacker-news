@@ -1,12 +1,18 @@
 <div *ngIf="news$ | async as config">
   <span>Total front news {{ config.nbHits }}</span>
   <br>
-  <a>
-    <button>Prev</button>
+  <a
+    (click)="setPage(-1)"
+    [routerLink]="['/news',  (newsTag$ | async), (currentPage$ | async)]"
+  >
+    <button class="btn btn-light">Prev {{ currentPage$ | async }}</button>
   </a>
 
-  <a>
-    <button>Next</button>
+  <a
+    (click)="setPage(1)"
+    [routerLink]="['/news',  (newsTag$ | async), (currentPage$ | async)]"
+  >
+    <button class="btn btn-light">Next  {{ currentPage$ | async }}</button>
   </a>
 
   <div class="col-md-3">Show Results:
