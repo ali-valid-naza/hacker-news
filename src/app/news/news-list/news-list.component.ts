@@ -40,7 +40,7 @@ export class NewsListComponent {
   constructor(
     route: ActivatedRoute,
     public newsService: NewsService) {
-    route.params.subscribe((v) => {
+    route.params.subscribe((v: { [x: string]: string; }) => {
       // console.log(v);
       this.newsService.setNewsTag(v['newsTag']);
     });

@@ -1,35 +1,69 @@
-<div *ngIf="news$ | async as config">
-  <span>Total front news {{ config.nbHits }}</span>
-  <br>
-  <a
-    (click)="setPage(-1)"
-    [routerLink]="['/news',  (newsTag$ | async), (currentPage$ | async)]"
-  >
-    <button class="btn btn-light">Prev {{ currentPage$ | async }}</button>
-  </a>
+<div class="card"
+     *ngIf="view$ | async as view"
+>
+  <div class="card-header">
+    {{ view.newsTag }}
+  </div>
 
-  <a
-    (click)="setPage(1)"
-    [routerLink]="['/news',  (newsTag$ | async), (currentPage$ | async)]"
-  >
-    <button class="btn btn-light">Next  {{ currentPage$ | async }}</button>
-  </a>
+  <div class="card-body">
+    <div class="row">
+      <span>Total front news {{ view.news.nbHits }}</span>
+      <br>
+      <a
+        (click)="setPage(-1)"
+        [routerLink]="['/news',  view.newsTag, view.currentPage]"
+      >
+        <button class="btn btn-light">Prev {{ view.currentPage }}</button>
+      </a>
 
-  <div class="col-md-3">Show Results:
-    <button class="btn btn-light"
-            *ngFor="let pageSize of pageSizes"
-            [ngClass]="{'active': pageSize === selectedButton}"
-            (click)="setPageSize(pageSize)"
-    >
-      {{ pageSize }}
-    </button>
+      <a
+        (click)="setPage(1)"
+        [routerLink]="['/news',  view.newsTag, view.currentPage]"
+      >
+        <button class="btn btn-light">Next  {{ view.currentPage }}</button>
+      </a>
+
+      <div class="col-md-3">Show Results:
+        <button class="btn btn-light"
+                *ngFor="let pageSize of pageSizes"
+                [ngClass]="{'active': pageSize === selectedButton}"
+                (click)="setPageSize(pageSize)"
+        >
+          {{ pageSize }}
+        </button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table mb-0"
+             *ngIf="view.news">
+        <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Points</th>
+          <th>URL</th>
+          <th>Comments</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let news of view.news.hits">
+          <td>
+
+            <a>
+              {{ news.title }}
+            </a>
+            <!--                      <a [routerLink]="[news.id]">-->
+            <!--                        {{ news.title }}-->
+            <!--                      </a>-->
+          </td>
+          <td>{{ news.author }}</td>
+          <td>{{ news.points }}</td>
+          <td><a href="{{ news.url }}">{{ news.url }}</a></td>
+          <td>{{ news.num_comments }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-
-<ng-container *ngIf="news$ | async as newsResponse">
-  <div *ngFor="let news of newsResponse.hits">
-     <span>
-       {{ news.title }}
-     </span>
-  </div>
-</ng-container>
