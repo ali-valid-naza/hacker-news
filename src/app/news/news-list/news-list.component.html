@@ -8,15 +8,17 @@
 
   <div class="card-body">
     <div class="row">
-      <span>Total front news {{ view.news.nbHits }}</span>
+      <span>Total {{ view.newsTag }} news {{ view.news.nbHits }}</span>
       <br>
       <div class="col-md-3">
+        Page: {{ view.currentPage}} of {{view.totalPages}}
         <button class="btn btn-light"
                 (click)="setPage(-1)"
                 [disabled]="disablePrevious$ | async"
         >Prev {{ view.currentPage }}</button>
         <button class="btn btn-light"
                 (click)="setPage(1)"
+                [disabled]="disableNext$ | async"
         >Next  {{ view.currentPage }}</button>
       </div>
 

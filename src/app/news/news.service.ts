@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subject, throwError } from 'rxjs';
 import { NewsResponse } from './types';
 import { HttpClient } from '@angular/common/http';
-import { catchError, scan, share, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, scan, share, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
-  pageSizes = [2, 3, 5];
+  pageSizes = [2, 3, 25];
   private newsUrl: string = 'http://hn.algolia.com/api/v1/search?';
 
-  private pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  private pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   private pageSizeSubject: BehaviorSubject<number> = new BehaviorSubject<number>(this.pageSizes[0]);
   pageSizeAction$ = this.pageSizeSubject.asObservable();
@@ -21,17 +21,14 @@ export class NewsService {
 
   currentPage$ = this.pageIndexSubject
     .pipe(
-      // tap((v) => console.log(`currentPage$ before scan ${v}`)),
       scan((acc, one) => {
         if (one === 0) {
           return 0;
-        }
-        else {
+        } else {
           return acc + one;
         }
       }),
       shareReplay(1),
-      // tap((v) => console.log(`currentPage$ after scan ${v}`)),
     );
 
 
@@ -52,12 +49,26 @@ export class NewsService {
               }
           }
         ).pipe(
-          tap((v) => console.log(v))
+          // tap((v) => console.log(v))
         )
       ),
       catchError(this.handleError)
     );
 
+  totalResults$ = this.news$
+    .pipe(
+      map((v) => v.nbHits)
+    );
+
+  totalPages$ = combineLatest([
+    this.totalResults$,
+    this.pageSizeAction$
+  ])
+    .pipe(
+      map(([total, pageSize]) =>
+        Math.ceil(total / pageSize)
+      )
+    );
 
 
   constructor(private http: HttpClient) {

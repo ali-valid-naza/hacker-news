@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest } from 'rxjs';
-import { map, tap, } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map, } from 'rxjs/operators';
 import { NewsService } from '../news.service';
 import { NewsResponse } from '../types';
-import { Observable } from 'rxjs';
-
 
 
 @Component({
@@ -13,7 +11,7 @@ import { Observable } from 'rxjs';
   templateUrl: './news-list.component.html',
   styleUrls: ['./news-list.component.css']
 })
-export class NewsListComponent {
+export class NewsListComponent implements OnInit{
   title = 'news-list';
   pageSizes = this.newsService.pageSizes;
   selectedButton = 2;
@@ -23,23 +21,33 @@ export class NewsListComponent {
 
   currentPage$ = this.newsService.currentPage$;
 
+  totalResults$ = this.newsService.totalResults$
+  totalPages$ = this.newsService.totalPages$
+
   disablePrevious$: Observable<boolean> = this.currentPage$
     .pipe(
       map(pageNumber => pageNumber === 0)
     );
 
+  disableNext$: Observable<boolean> = combineLatest([
+    this.currentPage$,
+    this.totalPages$
+  ]).pipe(
+    map(([currentPage, totalPages]) => currentPage === totalPages)
+  );
 
   view$ = combineLatest([
     this.currentPage$,
     this.newsTag$,
+    this.totalResults$,
+    this.totalPages$,
     this.news$,
   ]).pipe(
-    // @ts-ignore
-    map(([currentPage, newsTag, news,]:
-           [number, string, NewsResponse]) => ({
-      currentPage, newsTag, news
+    map(([currentPage, newsTag, totalResults, totalPages, news,]:
+           [number, string, number, number, NewsResponse]) => ({
+      currentPage, newsTag, totalResults, totalPages, news
     })),
-    tap((v) => console.log(v)),
+    // tap((v) => console.log(v)),
   );
 
   constructor(
@@ -49,6 +57,9 @@ export class NewsListComponent {
       // console.log(v);
       this.newsService.setNewsTag(v['newsTag']);
     });
+  }
+  ngOnInit(): void {
+    this.totalResults$.subscribe()
   }
 
   setPage(pageIndex: number) {
