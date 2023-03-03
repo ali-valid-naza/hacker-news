@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, concatMap, map, scan, shareReplay, switchMap, take, takeLast, tap } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, Observable, throwError } from 'rxjs';
+import { map, scan, shareReplay, switchMap, takeLast, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subject, throwError } from 'rxjs';
 import { NewsResponse } from '../news/types';
-import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DevNewsServiceService {
-  pageSizes = [2, 3, 25];
+  pageSizes = [5, 10, 25];
   private newsUrl: string = 'http://hn.algolia.com/api/v1/search?';
 
   private pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -20,13 +19,12 @@ export class DevNewsServiceService {
   private newsTagSubject: BehaviorSubject<string> = new BehaviorSubject('front_page');
   newsTag$ = this.newsTagSubject.asObservable();
 
-  private totalPagesViewSubject: Subject<number> = new Subject()
-  totalPagesViewDev$ = this.totalPagesViewSubject.asObservable()
+  private totalPagesViewSubject: Subject<number> = new Subject();
+  totalPagesViewDev$ = this.totalPagesViewSubject.asObservable();
 
 
   currentPageIndex$ = this.pageIndexSubject
     .pipe(
-      // @ts-ignore
       scan((acc, one) => {
         if (one === 0) {
           return 0;
@@ -34,7 +32,7 @@ export class DevNewsServiceService {
           return acc + one;
         }
       }),
-      // shareReplay(1),
+      shareReplay(1),
     );
 
   newsView$ = combineLatest([
@@ -79,13 +77,18 @@ export class DevNewsServiceService {
     this.pageIndexSubject.next(index);
   }
 
-  reinitializePageIndexSubject() {
-    this.pageIndexSubject.next(0);
-  }
-
   setNewsTag(tag: string) {
     this.newsTagSubject.next(tag);
     this.incrementPageIndex(0);
+  }
+
+  emitTag(tag: string) {
+    this.newsTagSubject.next(tag);
+    this.incrementPageIndex(0);
+  }
+
+  setTag(tag: string) {
+    this.newsTagSubject.next(tag);
   }
 
   private handleError(err: any): Observable<never> {

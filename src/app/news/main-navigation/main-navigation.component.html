@@ -6,7 +6,7 @@
          id="front_page"
          [routerLink]="['/dev/news/front_page']"
          routerLinkActive="active"
-         (click)="reinitializePageIndexSubject($event)"
+         (click)="emitTag($event)"
       >Front News</a>
     </li>
     <li class="nav-item">
@@ -15,7 +15,7 @@
          [routerLink]="['/dev/news/story']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"
-         (click)="reinitializePageIndexSubject($event)"
+         (click)="emitTag($event)"
       >Last News</a>
     </li>
     <li class="nav-item">
@@ -24,7 +24,7 @@
          [routerLink]="['/dev/news/poll']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"
-         (click)="reinitializePageIndexSubject($event)"
+         (click)="emitTag($event)"
       >Poll</a>
     </li>
     <li class="nav-item">
@@ -33,7 +33,7 @@
          [routerLink]="['/dev/news/pollopt']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"
-         (click)="reinitializePageIndexSubject($event)"
+         (click)="emitTag($event)"
       >Pollopt</a>
     </li>
   </ul>
