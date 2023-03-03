@@ -1,68 +1,98 @@
-<app-main-navigation></app-main-navigation>
-<div class="card"
-     *ngIf="view$ | async as view"
->
-  <div class="card-header">
-    {{ view.newsTag }}
-  </div>
+<!--<app-main-navigation></app-main-navigation>-->
 
-  <div class="card-body">
-    <div class="row">
-      <span>Total {{ view.newsTag }} news {{ view.news.nbHits }}</span>
-      <br>
-      <div class="col-md-3">
-        Page: {{ view.currentPage}} of {{view.totalPages}}
-        <button class="btn btn-light"
-                (click)="setPage(-1)"
-                [disabled]="disablePrevious$ | async"
-        >Prev {{ view.currentPage }}</button>
-        <button class="btn btn-light"
-                (click)="setPage(1)"
-                [disabled]="disableNext$ | async"
-        >Next  {{ view.currentPage }}</button>
-      </div>
+<!--&lt;!&ndash;[disabled]="disabledNext"&ndash;&gt;-->
+<!--<button-->
+<!--(click)="setPage(1)"-->
 
-      <div class="col-md-3">Show Results:
-        <button class="btn btn-light"
-                *ngFor="let pageSize of pageSizes"
-                [ngClass]="{'active': pageSize === selectedButton}"
-                (click)="setPageSize(pageSize)"
-        >
-          {{ pageSize }}
-        </button>
-      </div>
-    </div>
+<!--&gt;-->
+<!--  next-->
+<!--</button>-->
+<!--<br>-->
+<!--<button-->
+<!--  (click)="setPage(-1)"-->
+<!--  [disabled]="disablePrevious$ | async"-->
+<!--&gt;-->
+<!--  prev-->
+<!--</button>-->
 
-    <div class="table-responsive">
-      <table class="table mb-0"
-             *ngIf="view.news">
-        <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Points</th>
-          <th>URL</th>
-          <th>Comments</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let news of view.news.hits">
-          <td>
+<!--      <div class="col-md-3">Show Results:-->
+<!--        <button class="btn btn-light"-->
+<!--                *ngFor="let pageSize of pageSizes"-->
+<!--                [ngClass]="{'active': pageSize === selectedButton}"-->
+<!--                (click)="setPageSize(pageSize)"-->
+<!--        >-->
+<!--          {{ pageSize }}-->
+<!--        </button>-->
+<!--      </div>-->
 
-            <a>
-              {{ news.title }}
-            </a>
-            <!--                      <a [routerLink]="[news.id]">-->
-            <!--                        {{ news.title }}-->
-            <!--                      </a>-->
-          </td>
-          <td>{{ news.author }}</td>
-          <td>{{ news.points }}</td>
-          <td><a href="{{ news.url }}">{{ news.url }}</a></td>
-          <td><a [routerLink]="'/comment'">{{ news.num_comments }}</a></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+
+<!--+++++++++++++++++++++++++++++++++++++++-->
+
+<!--<app-main-navigation></app-main-navigation>-->
+<!--<div class="card"-->
+<!--     *ngIf="view$ | async as view"-->
+<!--&gt;-->
+<!--  <div class="card-header">-->
+<!--    {{ view.newsTag }}-->
+<!--  </div>-->
+
+<!--  <div class="card-body">-->
+<!--    <div class="row">-->
+<!--      <span>Total {{ view.newsTag }} news {{ view.news.nbHits }}</span>-->
+<!--      <br>-->
+<!--      <div class="col-md-3">-->
+<!--        Page: {{ view.currentPage}} of {{view.totalPages}}-->
+<!--        <button class="btn btn-light"-->
+<!--                (click)="setPage(-1)"-->
+<!--                [disabled]="disablePrevious$ | async"-->
+<!--        >Prev {{ view.currentPage }}</button>-->
+<!--        <button class="btn btn-light"-->
+<!--                (click)="setPage(1)"-->
+<!--                [disabled]="disableNext$ | async"-->
+<!--        >Next  {{ view.currentPage }}</button>-->
+<!--      </div>-->
+
+<!--      <div class="col-md-3">Show Results:-->
+<!--        <button class="btn btn-light"-->
+<!--                *ngFor="let pageSize of pageSizes"-->
+<!--                [ngClass]="{'active': pageSize === selectedButton}"-->
+<!--                (click)="setPageSize(pageSize)"-->
+<!--        >-->
+<!--          {{ pageSize }}-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="table-responsive">-->
+<!--      <table class="table mb-0"-->
+<!--             *ngIf="view.news">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--          <th>Title</th>-->
+<!--          <th>Author</th>-->
+<!--          <th>Points</th>-->
+<!--          <th>URL</th>-->
+<!--          <th>Comments</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr *ngFor="let news of view.news.hits">-->
+<!--          <td>-->
+
+<!--            <a>-->
+<!--              {{ news.title }}-->
+<!--            </a>-->
+<!--            &lt;!&ndash;                      <a [routerLink]="[news.id]">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        {{ news.title }}&ndash;&gt;-->
+<!--            &lt;!&ndash;                      </a>&ndash;&gt;-->
+<!--          </td>-->
+<!--          <td>{{ news.author }}</td>-->
+<!--          <td>{{ news.points }}</td>-->
+<!--          <td><a href="{{ news.url }}">{{ news.url }}</a></td>-->
+<!--          <td><a [routerLink]="'/comment'">{{ news.num_comments }}</a></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

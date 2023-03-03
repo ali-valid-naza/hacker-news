@@ -3,33 +3,37 @@
   <ul class="navbar-nav">
     <li class="nav-item">
       <a class="nav-link"
-         [routerLink]="['/news/front_page']"
+         id="front_page"
+         [routerLink]="['/dev/news/front_page']"
          routerLinkActive="active"
-         (click)="reinitializePageIndexSubject()"
+         (click)="reinitializePageIndexSubject($event)"
       >Front News</a>
     </li>
     <li class="nav-item">
       <a class="nav-link"
-         [routerLink]="['/news/story']"
+         id="story"
+         [routerLink]="['/dev/news/story']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"
-         (click)="reinitializePageIndexSubject()"
+         (click)="reinitializePageIndexSubject($event)"
       >Last News</a>
     </li>
     <li class="nav-item">
       <a class="nav-link"
-         [routerLink]="['/news/poll']"
+         id="poll"
+         [routerLink]="['/dev/news/poll']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"
-         (click)="reinitializePageIndexSubject()"
+         (click)="reinitializePageIndexSubject($event)"
       >Poll</a>
     </li>
     <li class="nav-item">
       <a class="nav-link"
-         [routerLink]="['/news/pollopt']"
+         id="pollopt"
+         [routerLink]="['/dev/news/pollopt']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"
-         (click)="reinitializePageIndexSubject()"
+         (click)="reinitializePageIndexSubject($event)"
       >Pollopt</a>
     </li>
   </ul>

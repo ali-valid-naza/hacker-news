@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NewsService } from '../news.service';
+import { DevNewsServiceService } from '../../dev/dev-news-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { first, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main-navigation',
@@ -8,10 +11,12 @@ import { NewsService } from '../news.service';
 })
 export class MainNavigationComponent {
   pageTitle = "Menu";
-  constructor(private newsService: NewsService) {
+  constructor(
+    private route: ActivatedRoute,
+    private newsService: DevNewsServiceService) {
   }
 
-  reinitializePageIndexSubject() {
-    this.newsService.reinitializePageIndexSubject()
+  reinitializePageIndexSubject($event: any) {
+
   }
 }

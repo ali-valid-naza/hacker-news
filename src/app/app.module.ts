@@ -8,13 +8,15 @@ import { CommonModule } from '@angular/common';
 import { NewsListComponent } from './news/news-list/news-list.component';
 import { CommentsTreeComponent } from './comments/comments-tree/comments-tree.component';
 import { MainNavigationComponent } from './news/main-navigation/main-navigation.component';
+import { DevListComponent } from './dev/dev-list/dev-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewsListComponent,
     CommentsTreeComponent,
-    MainNavigationComponent
+    MainNavigationComponent,
+    DevListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, Observable } from 'rxjs';
-import { map, } from 'rxjs/operators';
+import { combineLatest, Observable,  } from 'rxjs';
+import {  map, tap, } from 'rxjs/operators';
 import { NewsService } from '../news.service';
-import { NewsResponse } from '../types';
+import { News, NewsResponse } from '../types';
+import { forkJoin } from 'rxjs';
+import { zip } from 'rxjs';
+import { race } from 'rxjs';
 
 
 @Component({
@@ -17,38 +20,55 @@ export class NewsListComponent implements OnInit{
   selectedButton = 2;
 
   newsTag$ = this.newsService.newsTag$;
-  news$ = this.newsService.news$;
+  newsResponse$ = this.newsService.newsResponse$;
 
-  currentPage$ = this.newsService.currentPage$;
+  currentPageIndex$ = this.newsService.currentPageIndex$;
 
   totalResults$ = this.newsService.totalResults$
   totalPages$ = this.newsService.totalPages$
 
-  disablePrevious$: Observable<boolean> = this.currentPage$
+  disablePrevious$: Observable<boolean> = this.currentPageIndex$
     .pipe(
       map(pageNumber => pageNumber === 0)
     );
 
   disableNext$: Observable<boolean> = combineLatest([
-    this.currentPage$,
+    this.currentPageIndex$,
     this.totalPages$
   ]).pipe(
     map(([currentPage, totalPages]) => currentPage === totalPages)
   );
 
+  // view$ = combineLatest([
+  //   this.currentPageIndex$,
+  //   this.newsTag$,
+  //   this.totalResults$,
+  //   this.totalPages$,
+  //   this.newsResponse$,
+  // ]).pipe(
+  //   // tap(console.log),
+  //   map(([currentPage, newsTag, totalResults, totalPages, news,]:
+  //          [number, string, number, number, NewsResponse]) => ({
+  //     currentPage, newsTag, totalResults, totalPages, news
+  //   })),
+  //   // tap((v) => console.log(v)),
+  // );
+  totalNews$ = this.newsService.totalNews$
+
   view$ = combineLatest([
-    this.currentPage$,
-    this.newsTag$,
     this.totalResults$,
-    this.totalPages$,
-    this.news$,
+    this.currentPageIndex$,
+    this.totalNews$,
   ]).pipe(
-    map(([currentPage, newsTag, totalResults, totalPages, news,]:
-           [number, string, number, number, NewsResponse]) => ({
-      currentPage, newsTag, totalResults, totalPages, news
+    tap(console.log),
+    map(([totalPages, currentPage, news]: [ number, number, News[]]) => ({
+      totalPages, currentPage, news
     })),
-    // tap((v) => console.log(v)),
-  );
+  )
+
+  // viewNews$ = this.newsService.viewNews$
+  disabledNext: boolean = false
+
 
   constructor(
     route: ActivatedRoute,
@@ -59,7 +79,7 @@ export class NewsListComponent implements OnInit{
     });
   }
   ngOnInit(): void {
-    this.totalResults$.subscribe()
+    this.view$.subscribe()
   }
 
   setPage(pageIndex: number) {

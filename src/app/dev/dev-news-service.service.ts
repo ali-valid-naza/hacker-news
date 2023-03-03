@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, Subject, throwError } from 'rxjs';
-import { News, NewsResponse } from './types';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, mergeMap, scan, share, shareReplay, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { catchError, concatMap, map, scan, shareReplay, switchMap, take, takeLast, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, throwError } from 'rxjs';
+import { NewsResponse } from '../news/types';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NewsService {
+export class DevNewsServiceService {
   pageSizes = [2, 3, 25];
   private newsUrl: string = 'http://hn.algolia.com/api/v1/search?';
 
@@ -19,8 +20,13 @@ export class NewsService {
   private newsTagSubject: BehaviorSubject<string> = new BehaviorSubject('front_page');
   newsTag$ = this.newsTagSubject.asObservable();
 
+  private totalPagesViewSubject: Subject<number> = new Subject()
+  totalPagesViewDev$ = this.totalPagesViewSubject.asObservable()
+
+
   currentPageIndex$ = this.pageIndexSubject
     .pipe(
+      // @ts-ignore
       scan((acc, one) => {
         if (one === 0) {
           return 0;
@@ -28,65 +34,44 @@ export class NewsService {
           return acc + one;
         }
       }),
-      shareReplay(1),
+      // shareReplay(1),
     );
 
-
-  newsResponse$ = combineLatest([
+  newsView$ = combineLatest([
     this.newsTag$,
     this.currentPageIndex$,
-    this.pageSizeAction$
-  ])
-    .pipe(
-      // tap(console.log),
-      switchMap(([newsTag, pageNumber, pageSize,]) =>
-        this.http.get<NewsResponse>(this.newsUrl, {
-            params:
-              {
-                tags: newsTag,
-                page: pageNumber.toString(),
-                hitsPerPage: pageSize.toString(),
-              }
-          },
-        )
-      ),
-      catchError(this.handleError)
-    );
+    this.pageSizeAction$,
+  ]).pipe(
+    switchMap(([tag, page, hitsPerPage,]) =>
+      this.http.get<NewsResponse>(this.newsUrl, {
+        params: {
+          tags: tag,
+          page: page.toString(),
+          hitsPerPage: hitsPerPage.toString(),
+        }
+      })
+        .pipe(
+          takeLast(1),
+          tap(console.log))
+    )
+  );
 
-  // viewNews$ = this.newsResponse$.pipe(
-  //   map( (value: NewsResponse) => value.hits)
-  // )
+  totalPagesAllNews$ = this.newsView$.pipe(
+    map((v: NewsResponse) => v.nbHits)
+  );
 
-  totalResults$ = this.newsResponse$
-    .pipe(
-      map((v: NewsResponse) => v.nbHits)
-    );
-
-  totalPages$ = combineLatest([
-    this.totalResults$,
+  totalPagesView$ = combineLatest([
+    this.totalPagesAllNews$,
     this.pageSizeAction$
   ]).pipe(
-      map(([total, pageSize]) =>
-        Math.ceil(total / pageSize) - 1
-      )
-    );
-
-  // totalPages$ = this.newsResponse$.pipe(
-  //   map((value: News => value.nbHits))
-  // )
-
-  totalNews$ = this.newsResponse$.pipe(
-    map((v: NewsResponse) => v.hits)
-  )
-
+    map(([total, pageSize]) => Math.ceil(total / pageSize) - 1)
+  );
 
   constructor(private http: HttpClient) {
   }
 
-  // Page size was changed
   changePageSize(size: number): void {
     this.pageSizeSubject.next(size);
-    // When the page size changes, reset the page number.
     this.incrementPageIndex(0);
   }
 
@@ -100,6 +85,7 @@ export class NewsService {
 
   setNewsTag(tag: string) {
     this.newsTagSubject.next(tag);
+    this.incrementPageIndex(0);
   }
 
   private handleError(err: any): Observable<never> {
