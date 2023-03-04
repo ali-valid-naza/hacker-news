@@ -9,6 +9,7 @@ import { NewsListComponent } from './news/news-list/news-list.component';
 import { CommentsTreeComponent } from './comments/comments-tree/comments-tree.component';
 import { MainNavigationComponent } from './news/main-navigation/main-navigation.component';
 import { DevListComponent } from './dev/dev-list/dev-list.component';
+import { CommentWrapperComponent } from './comments/comments-tree/comment-wrapper/comment-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DevListComponent } from './dev/dev-list/dev-list.component';
     NewsListComponent,
     CommentsTreeComponent,
     MainNavigationComponent,
-    DevListComponent
+    DevListComponent,
+    CommentWrapperComponent
   ],
   imports: [
     BrowserModule,

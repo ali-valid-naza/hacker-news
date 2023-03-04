@@ -31,6 +31,7 @@
            *ngIf="view">
       <thead>
       <tr>
+        <th>objectID</th>
         <th>Title</th>
         <th>Author</th>
         <th>Points</th>
@@ -40,11 +41,13 @@
       </thead>
       <tbody>
       <tr *ngFor="let news of view.hits">
+        <td> {{ news.objectID }} </td>
         <td> {{ news.title }} </td>
         <td>{{ news.author }}</td>
         <td>{{ news.points }}</td>
         <td><a href="{{ news.url }}">{{ news.url }}</a></td>
         <td><a [routerLink]="'/comment'">{{ news.num_comments }}</a></td>
+        <td>{{ news.created_at_i | date }}</td>
       </tr>
       </tbody>
     </table>

@@ -1,27 +1,24 @@
 import { Component, Input } from '@angular/core';
-import { DevNewsServiceService } from '../../dev/dev-news-service.service';
-import { dataCommentMock } from '../data';
-import { Comments } from '../../news/types';
+import { DevNewsServiceService } from '../../../dev/dev-news-service.service';
+import { Comments } from '../../../news/types';
 
 @Component({
-  selector: 'app-comments-tree',
-  templateUrl: './comments-tree.component.html',
-  styleUrls: ['./comments-tree.component.css']
+  selector: 'app-comment-wrapper',
+  templateUrl: './comment-wrapper.component.html',
+  styleUrls: ['./comment-wrapper.component.css']
 })
-export class CommentsTreeComponent {
+export class CommentWrapperComponent {
   commentData$ = this.newsService.commentData$;
-  dcm = dataCommentMock
-  tree: any
-  @Input() input: any
+  input: any
 
   constructor(
     private newsService: DevNewsServiceService,) {
-    // this.commentData$.subscribe((v) => {
-    //   console.log(v)
-    //   console.log(this.prepareTreeData(v.hits, '34999925'));
-    //   this.tree = this.prepareTreeData(v.hits, '34999925')
-    //   // this.input = this.prepareTreeData(v.hits, '34999925')
-    // })
+    this.commentData$.subscribe((v) => {
+      console.log(v)
+      console.log(this.prepareTreeData(v.hits, '34999925'));
+      // this.tree = this.prepareTreeData(v.hits, '34999925')
+      this.input = this.prepareTreeData(v.hits, '34999925')
+    })
 
     // this.newsService.devCommentData$.subscribe(console.log)
 
@@ -38,5 +35,4 @@ export class CommentsTreeComponent {
       }, [])
       .filter(i => i.parent_id === Number(newsObjectId));
   }
-
 }

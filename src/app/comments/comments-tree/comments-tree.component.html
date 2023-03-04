@@ -1,2 +1,63 @@
-<app-main-navigation></app-main-navigation>
-<p>comments-tree works!</p>
+<!--<app-main-navigation></app-main-navigation>-->
+
+
+
+<ul *ngFor="let list of input; let i=index">
+  <li>
+   <p>{{list.comment_text}}</p>
+   <p>{{list.author}}</p>
+    <ng-container *ngIf="list?.children"
+    style="padding-left: 40px"
+    >
+      <app-comments-tree [input]="list?.children"></app-comments-tree>
+    </ng-container>
+  </li>
+</ul>
+
+<!--<ng-container *ngIf="tree">-->
+<!--  <ul *ngFor="let data of tree; let i = index">-->
+<!--    <li>-->
+<!--      <span>{{ data.author }}</span>-->
+<!--      <span>{{ data.parent_id }}</span>-->
+<!--      <p>{{ data.comment_text }}</p>-->
+<!--      <span style="color: red">{{ data?.children?.length }}</span>-->
+
+<!--      <ng-container *ngIf="data?.children">-->
+<!--        &lt;!&ndash;        <ul *ngFor="let children of data?.children"&ndash;&gt;-->
+<!--        &lt;!&ndash;            style="padding-left: 40px">&ndash;&gt;-->
+<!--        &lt;!&ndash;          <li>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <span>{{ children.author }}</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <span>{{ children.parent_id }}</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <p>{{ children.comment_text }}</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;          </li>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </ul>&ndash;&gt;-->
+<!--      </ng-container>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</ng-container>-->
+
+
+<ng-template #treeNode let-data="tree">
+  <ul *ngFor="let node of tree"
+      style="padding-left: 40px">>
+    <li>
+      <span>{{ node.author }}</span>
+      <span>{{ node.objectID }}</span>
+      <p>{{ node.comment_text }}</p>
+    </li>
+  </ul>
+</ng-template>
+
+
+<!--<ng-container *ngIf="commentData$ | async as comments">-->
+<!--  <ul *ngFor="let data of comments.hits; let i = index">-->
+<!--    <li>-->
+<!--      <span>{{ data.author }}</span>-->
+<!--      <span>{{ data.objectID }}</span>-->
+<!--      <p>{{ data.comment_text }}</p>-->
+<!--      <span>{{ data?.children?.length }}</span>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</ng-container>-->
+
+
