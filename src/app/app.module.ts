@@ -7,12 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { NewsListComponent } from './news/news-list/news-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavigationComponent,
     NewsListComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

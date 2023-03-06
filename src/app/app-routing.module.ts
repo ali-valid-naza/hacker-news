@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NewsListComponent } from './news/news-list/news-list.component';
-import { CommentWrapperComponent } from './comments/comment-wrapper/comment-wrapper.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  // {path: '', component: MainNavigationComponent},
+  {path: '', redirectTo: 'news/front_page', pathMatch: 'full'},
   {path: 'news/:newsTag', component: NewsListComponent},
   {
     path: 'comment/:newsObjectId/:hitsPerPage',
     data: { preload: false },
     loadChildren: () => import('./comments/comments.module').then(m => m.CommentsModule)
   },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
