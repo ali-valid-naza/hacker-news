@@ -1,2 +1,8 @@
-<app-main-navigation></app-main-navigation>
+<div class="d-flex justify-content-center"
+     *ngIf="loading">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
 <router-outlet></router-outlet>

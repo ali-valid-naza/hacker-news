@@ -20,6 +20,7 @@ import { MainNavigationComponent } from '../main-navigation/main-navigation.comp
         component: CommentWrapperComponent
       },
     ]),
+    MainNavigationComponent
   ]
 })
 export class CommentsModule { }

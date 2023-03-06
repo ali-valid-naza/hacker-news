@@ -9,7 +9,7 @@ import { NewsResponse } from './types';
 })
 export class NewsService {
   pageSizes = [3, 5, 10, 25];
-  private newsUrl: string = 'http://hn.algolia.com/api/v1/search?';
+  private newsUrl: string = 'https://hn.algolia.com/api/v1/search?';
 
 
   private pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);

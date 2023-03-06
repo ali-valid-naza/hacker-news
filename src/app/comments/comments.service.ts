@@ -51,12 +51,10 @@ export class CommentsService {
 
 
   setNewsObjectId(id: string) {
-    console.log(id);
     this.newsObjectIdSubject.next(id);
   }
 
   setCommentsHitsPerPage(hitsPerPage: string) {
-    console.log(hitsPerPage);
     this.commentsHitsPerPageSubject.next(hitsPerPage);
   }
 
