@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DevNewsServiceService } from '../../../dev/dev-news-service.service';
-import { Comments } from '../../../news/types';
-import { CommentsService } from '../../comments.service';
+import { DevNewsServiceService } from '../../dev/dev-news-service.service';
+import { Comments } from '../../news/types';
+import { CommentsService } from '../comments.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

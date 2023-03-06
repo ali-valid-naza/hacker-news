@@ -2,17 +2,18 @@
 
 <div class="container" *ngIf="newsView$ | async as view">
   <button
-    (click)="setPage(1)"
-    [disabled]="view.nbPages  - 1 === (currentPageIndex$ | async)"
-  >
-    next
-  </button>
-  <br>
-  <button
+    class="btn btn-primary"
     (click)="setPage(-1)"
     [disabled]="disablePrevious$ | async"
   >
     prev
+  </button>
+  <button
+    class="btn btn-primary"
+    (click)="setPage(1)"
+    [disabled]="view.nbPages  - 1 === (currentPageIndex$ | async)"
+  >
+    next
   </button>
 
   <div class="col-md-3">Show Results:
@@ -31,18 +32,15 @@
            *ngIf="view">
       <thead>
       <tr>
-        <th>objectID</th>
         <th>Title</th>
         <th>Author</th>
         <th>Points</th>
         <th>URL</th>
         <th>Comments</th>
-        <th>objectId</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let news of view.hits">
-        <td> {{ news.objectID }} </td>
         <td> {{ news.title }} </td>
         <td>{{ news.author }}</td>
         <td>{{ news.points }}</td>
@@ -50,7 +48,6 @@
         <td><a [routerLink]="['/comment', news.objectID, news.num_comments]"
           (click)="setCommentsParams(news.objectID, news.num_comments)"
         >{{ news.num_comments }}</a></td>
-        <td>{{ news.objectID }}</td>
       </tr>
       </tbody>
     </table>
