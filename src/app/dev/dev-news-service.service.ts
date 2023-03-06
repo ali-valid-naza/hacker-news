@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, scan, shareReplay, switchMap, takeLast, tap } from 'rxjs/operators';
+import { map, scan, shareReplay, switchMap, takeLast } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, Observable, Subject, throwError } from 'rxjs';
-import { Comments, NewsCommentsResponse, NewsResponse } from '../news/types';
+import { NewsResponse } from '../news/types';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { Comments, NewsCommentsResponse, NewsResponse } from '../news/types';
 export class DevNewsServiceService {
   pageSizes = [3, 5, 10, 25];
   private newsUrl: string = 'http://hn.algolia.com/api/v1/search?';
-  private commentsUrl: string = 'https://hn.algolia.com/api/v1/search?tags=comment'
+
 
   private pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
@@ -22,7 +22,6 @@ export class DevNewsServiceService {
 
   private totalPagesViewSubject: Subject<number> = new Subject();
   totalPagesViewDev$ = this.totalPagesViewSubject.asObservable();
-
 
   currentPageIndex$ = this.pageIndexSubject
     .pipe(
@@ -41,7 +40,7 @@ export class DevNewsServiceService {
     this.currentPageIndex$,
     this.pageSizeAction$,
   ]).pipe(
-    switchMap(([tag, page, hitsPerPage,]) =>
+    switchMap(([tag, page, hitsPerPage,]) => //NB exhaustMap()?
       this.http.get<NewsResponse>(this.newsUrl, {
         params: {
           tags: tag,
@@ -50,10 +49,9 @@ export class DevNewsServiceService {
         }
       })
         .pipe(
-          takeLast(1),
-          tap(console.log))
+          takeLast(1)
     )
-  );
+  ));
 
   totalPagesAllNews$ = this.newsView$.pipe(
     map((v: NewsResponse) => v.nbHits)
@@ -91,41 +89,6 @@ export class DevNewsServiceService {
   setTag(tag: string) {
     this.newsTagSubject.next(tag);
   }
-
-  //COMMENTS
-
-  // commentData$ =
-  //   this.http.get<NewsCommentsResponse>( `${this.commentsUrl},story_${34999464}`)
-
-  commentData$ =
-    this.http.get<NewsCommentsResponse>
-    ( 'https://hn.algolia.com/api/v1/search?',
-      {
-        params: {
-          tags: `comment,story_${34999925}`,
-          hitsPerPage: '1052',
-        }
-      })
-
-  devCommentData$ =
-    this.http.get<NewsCommentsResponse>
-    ( 'https://hn.algolia.com/api/v1/search?',
-      {
-        params: {
-          tags: `comment,story_${34999925}`,
-          hitsPerPage: '1052',
-        }
-      }).pipe(
-        map((value => {
-         return value.hits.reduce((parent: Comments[], child: Comments) => {
-            child.children = value.hits
-              .filter(i => i.parent_id === Number(child.objectID));
-            parent.push(child);
-            return parent;
-          }, [])
-            .filter(i => i.parent_id === Number('34999925'));
-        }))
-    )
 
 
   private handleError(err: any): Observable<never> {

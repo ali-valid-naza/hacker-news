@@ -37,6 +37,7 @@
         <th>Points</th>
         <th>URL</th>
         <th>Comments</th>
+        <th>objectId</th>
       </tr>
       </thead>
       <tbody>
@@ -46,8 +47,10 @@
         <td>{{ news.author }}</td>
         <td>{{ news.points }}</td>
         <td><a href="{{ news.url }}">{{ news.url }}</a></td>
-        <td><a [routerLink]="'/comment'">{{ news.num_comments }}</a></td>
-        <td>{{ news.created_at_i | date }}</td>
+        <td><a [routerLink]="['/comment', news.objectID, news.num_comments]"
+          (click)="setCommentsParams(news.objectID, news.num_comments)"
+        >{{ news.num_comments }}</a></td>
+        <td>{{ news.objectID }}</td>
       </tr>
       </tbody>
     </table>

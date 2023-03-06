@@ -1,2 +1,20 @@
 <app-main-navigation></app-main-navigation>
-<app-comments-tree [input]="input" ></app-comments-tree>
+
+<!--<div *ngIf="commentData$ | async as data">-->
+<!--  <div *ngFor="let v of data.hits">-->
+<!--    <p>{{ v.comment_text }}</p>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<h6 *ngIf="input">jkhkljdafs</h6>-->
+
+
+<!--  <div *ngFor="let v of input">-->
+<!--    <p>{{ v.comment_text }}</p>-->
+<!--  </div>-->
+
+
+<ng-container *ngIf="(commentData$ | async) as data">
+  <app-comments-tree [input]="data"></app-comments-tree>
+</ng-container>
+

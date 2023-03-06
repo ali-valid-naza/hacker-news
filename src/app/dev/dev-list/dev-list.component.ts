@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DevNewsServiceService } from '../dev-news-service.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { CommentsService } from '../../comments/comments.service';
 
 @Component({
   selector: 'app-dev-list',
@@ -23,7 +24,9 @@ export class DevListComponent {
 
 
   constructor(
-    private newsService: DevNewsServiceService,) {
+    private newsService: DevNewsServiceService,
+    private comments: CommentsService,
+    ) {
   }
 
   setPage(pageIndex: number) {
@@ -33,5 +36,18 @@ export class DevListComponent {
   setPageSize(pageSize: number): void {
     this.selectedButton = pageSize;
     this.newsService.changePageSize(pageSize);
+  }
+
+  setCommentsParams(id: string, hitsParPage: number) {
+    this.setObjectId(id)
+    this.setCommentsHitsPerPage(hitsParPage)
+  }
+
+  setObjectId(id: string) {
+    this.comments.setNewsObjectId(id)
+  }
+
+  setCommentsHitsPerPage(hitsParPage: number) {
+    this.comments.setCommentsHitsPerPage(hitsParPage.toString())
   }
 }

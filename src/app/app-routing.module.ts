@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'news/:newsTag', component: NewsListComponent},
   {path: 'dev/news/:newsTag', component: DevListComponent},
   // {path: 'comment', component: CommentsTreeComponent},
-  {path: 'comment', component: CommentWrapperComponent},
+  {path: 'comment/:newsObjectId/:hitsPerPage', component: CommentWrapperComponent},
 ];
 
 @NgModule({
