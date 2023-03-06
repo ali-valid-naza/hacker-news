@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, scan, shareReplay, switchMap, takeLast } from 'rxjs/operators';
+import { catchError, concatMap, map, scan, shareReplay, takeLast } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, Observable, Subject, throwError } from 'rxjs';
 import { NewsResponse } from './types';
 
@@ -40,7 +40,7 @@ export class NewsService {
     this.currentPageIndex$,
     this.pageSizeAction$,
   ]).pipe(
-    switchMap(([tag, page, hitsPerPage,]) => //NB exhaustMap()?
+    concatMap(([tag, page, hitsPerPage,]) =>
       this.http.get<NewsResponse>(this.newsUrl, {
         params: {
           tags: tag,
