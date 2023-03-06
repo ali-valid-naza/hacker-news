@@ -8,4 +8,8 @@ import { Comments } from '../../news/types';
 })
 export class CommentsTreeComponent {
   @Input() input: Comments[] | undefined
+
+  expand(id: string) {
+
+  }
 }

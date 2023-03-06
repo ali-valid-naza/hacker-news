@@ -1,12 +1,10 @@
-<ul *ngFor="let list of input; let i=index">
-  <li>
-   <p>{{list.comment_text}}</p>
-   <p>{{list.author}}</p>
-   <p *ngIf="list?.children"> привет{{list?.children}}</p>
+<ul>
+  <li *ngFor="let list of input; let i=index">
+    <p>{{list.comment_text}}</p>
+    <p>{{list.author}}</p>
     <ng-container *ngIf="list?.children"
-    style="padding-left: 40px"
     >
-      <app-comments-tree [input]="list?.children"></app-comments-tree>
+      <app-comments-tree id="collapseExample{{ i }}" [input]="list?.children"></app-comments-tree>
     </ng-container>
   </li>
 </ul>
