@@ -9,22 +9,21 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './comment-wrapper.component.html',
   styleUrls: ['./comment-wrapper.component.css']
 })
-export class CommentWrapperComponent implements OnInit
-{
+export class CommentWrapperComponent implements OnInit {
   commentData$ = this.comments.commentData$;
-  input: Comments[] | undefined
+  input: Comments[] | undefined;
 
   constructor(
     private newsService: DevNewsServiceService,
     private comments: CommentsService,
     private route: ActivatedRoute,
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(v => {
-      this.comments.setNewsObjectId(v['newsObjectId'])
-      this.comments.setCommentsHitsPerPage(v['hitsPerPage'])
-    })
+      this.comments.setNewsObjectId(v['newsObjectId']);
+      this.comments.setCommentsHitsPerPage(v['hitsPerPage']);
+    });
   }
 }

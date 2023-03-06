@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, scan, shareReplay, switchMap, takeLast } from 'rxjs/operators';
+import { catchError, map, scan, shareReplay, switchMap, takeLast } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, Observable, Subject, throwError } from 'rxjs';
 import { NewsResponse } from '../news/types';
 
@@ -49,9 +49,10 @@ export class DevNewsServiceService {
         }
       })
         .pipe(
-          takeLast(1)
-    )
-  ));
+          takeLast(1),
+          catchError(this.handleError)
+        )
+    ));
 
   totalPagesAllNews$ = this.newsView$.pipe(
     map((v: NewsResponse) => v.nbHits)
@@ -91,7 +92,7 @@ export class DevNewsServiceService {
   }
 
 
-  private handleError(err: any): Observable<never> {
+  handleError(err: any): Observable<never> {
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {
       errorMessage = `An error occurred: ${ err.error.message }`;

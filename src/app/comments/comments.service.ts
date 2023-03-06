@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, zip } from 'rxjs';
 import { Comments, NewsCommentsResponse } from '../news/types';
 import { HttpClient } from '@angular/common/http';
+import { DevNewsServiceService } from '../dev/dev-news-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,29 +12,30 @@ export class CommentsService {
   private commentsUrl: string = 'https://hn.algolia.com/api/v1/search?tags=comment';
 
   private newsObjectIdSubject: BehaviorSubject<string> = new BehaviorSubject('');
-  newsObjectId$ = this.newsObjectIdSubject.asObservable()
+  newsObjectId$ = this.newsObjectIdSubject.asObservable();
 
   private commentsHitsPerPageSubject: BehaviorSubject<string> = new BehaviorSubject('');
-  commentsHitsPerPage$ = this.commentsHitsPerPageSubject.asObservable()
+  commentsHitsPerPage$ = this.commentsHitsPerPageSubject.asObservable();
 
   commentData$ =
     zip([
       this.newsObjectId$,
       this.commentsHitsPerPage$
     ]).pipe(
-      tap((v) => console.log(v)),
       switchMap(([id, hitsPerPage,]) =>
-          this.http.get<NewsCommentsResponse>
-          (this.commentsUrl,
-            {
-              params: {
-                tags: `comment,story_${ id }`,
-                hitsPerPage: hitsPerPage,
-              }
-            })
-        .pipe(map((value) => this.prepareTreeData(value.hits, id)))
+        this.http.get<NewsCommentsResponse>
+        (this.commentsUrl,
+          {
+            params: {
+              tags: `comment,story_${ id }`,
+              hitsPerPage: hitsPerPage,
+            }
+          })
+          .pipe(
+            map((value) => this.prepareTreeData(value.hits, id)),
+            catchError(this.newsService.handleError)
+          )
       ),
-      tap((v) => console.log(v)),
     );
 
   prepareTreeData(data: Comments[], newsObjectId: string) {
@@ -58,6 +60,9 @@ export class CommentsService {
     this.commentsHitsPerPageSubject.next(hitsPerPage);
   }
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private newsService: DevNewsServiceService,
+  ) {
   }
 }

@@ -7,9 +7,5 @@ import { Comments } from '../../news/types';
   styleUrls: ['./comments-tree.component.css']
 })
 export class CommentsTreeComponent {
-  @Input() input: Comments[] | undefined
-
-  expand(id: string) {
-
-  }
+  @Input() input: Comments[] | undefined;
 }
