@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NewsService } from '../../news/news.service';
 import { Comments } from '../../news/types';
 import { CommentsService } from '../comments.service';
@@ -7,7 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-comment-wrapper',
   templateUrl: './comment-wrapper.component.html',
-  styleUrls: ['./comment-wrapper.component.css']
+  styleUrls: ['./comment-wrapper.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentWrapperComponent implements OnInit {
   commentData$ = this.comments.commentData$;
