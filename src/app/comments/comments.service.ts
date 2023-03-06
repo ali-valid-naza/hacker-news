@@ -3,7 +3,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, zip } from 'rxjs';
 import { Comments, NewsCommentsResponse } from '../news/types';
 import { HttpClient } from '@angular/common/http';
-import { DevNewsServiceService } from '../dev/dev-news-service.service';
+import { NewsService } from '../news/news.service';
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +62,7 @@ export class CommentsService {
 
   constructor(
     private http: HttpClient,
-    private newsService: DevNewsServiceService,
+    private newsService: NewsService,
   ) {
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DevNewsServiceService } from '../../dev/dev-news-service.service';
+import { NewsService } from '../../news/news.service';
 import { Comments } from '../../news/types';
 import { CommentsService } from '../comments.service';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ export class CommentWrapperComponent implements OnInit {
   input: Comments[] | undefined;
 
   constructor(
-    private newsService: DevNewsServiceService,
+    private newsService: NewsService,
     private comments: CommentsService,
     private route: ActivatedRoute,
   ) {

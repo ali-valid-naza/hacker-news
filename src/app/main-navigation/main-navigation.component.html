@@ -4,7 +4,7 @@
     <li class="nav-item">
       <a class="nav-link"
          id="front_page"
-         [routerLink]="['/dev/news/front_page']"
+         [routerLink]="['/news/front_page']"
          routerLinkActive="active"
          (click)="emitTag($event)"
       >Front News</a>
@@ -12,7 +12,7 @@
     <li class="nav-item">
       <a class="nav-link"
          id="story"
-         [routerLink]="['/dev/news/story']"
+         [routerLink]="['/news/story']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"
          (click)="emitTag($event)"
@@ -21,7 +21,7 @@
     <li class="nav-item">
       <a class="nav-link"
          id="poll"
-         [routerLink]="['/dev/news/poll']"
+         [routerLink]="['/news/poll']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"
          (click)="emitTag($event)"
@@ -30,7 +30,7 @@
     <li class="nav-item">
       <a class="nav-link"
          id="pollopt"
-         [routerLink]="['/dev/news/pollopt']"
+         [routerLink]="['/news/pollopt']"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact : true}"
          (click)="emitTag($event)"
