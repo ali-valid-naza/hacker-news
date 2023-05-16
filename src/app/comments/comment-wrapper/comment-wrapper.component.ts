@@ -3,6 +3,7 @@ import { NewsService } from '../../news/news.service';
 import { Comments } from '../../news/types';
 import { CommentsService } from '../comments.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-comment-wrapper',
@@ -13,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class CommentWrapperComponent implements OnInit {
   commentData$ = this.comments.commentData$;
   input: Comments[] | undefined;
+  loader$: Observable<boolean>;
 
   constructor(
     private newsService: NewsService,

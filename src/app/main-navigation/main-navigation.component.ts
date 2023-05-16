@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NewsService } from '../news/news.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
@@ -7,7 +7,8 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
   templateUrl: './main-navigation.component.html',
   styleUrls: ['./main-navigation.component.css'],
   standalone: true,
-  imports: [RouterModule]
+  imports: [RouterModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainNavigationComponent {
   pageTitle = "Menu";

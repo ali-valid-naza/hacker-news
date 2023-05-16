@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { LoadingService } from './loading.service';
 
 @Component({
   selector: 'app-root',
@@ -7,25 +7,12 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  loading: boolean;
 
-  constructor(private router: Router) {
-//@ts-ignore
-    router.events.subscribe((routerEvent: Event) => {
-      this.checkRouterEvent(routerEvent);
-    });
+  loader$ = this.loading.loading$;
+
+  constructor(
+    private loading: LoadingService,
+  ) {
   }
 
-  private checkRouterEvent(routerEvent: Event): void {
-    if (routerEvent instanceof NavigationStart) {
-      this.loading = true;
-    }
-
-    if (routerEvent instanceof NavigationEnd ||
-      routerEvent instanceof NavigationCancel ||
-      routerEvent instanceof NavigationError
-    ) {
-      this.loading = false;
-    }
-  }
 }

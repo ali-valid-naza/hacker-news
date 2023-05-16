@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { CommentsTreeComponent } from './comments-tree/comments-tree.component';
 import { CommentWrapperComponent } from './comment-wrapper/comment-wrapper.component';
 import { RouterModule } from '@angular/router';
-import { MainNavigationComponent } from '../main-navigation/main-navigation.component';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptor } from '../loader.interceptor';
 
 
 @NgModule({
@@ -20,7 +20,6 @@ import { MainNavigationComponent } from '../main-navigation/main-navigation.comp
         component: CommentWrapperComponent
       },
     ]),
-    MainNavigationComponent
-  ]
+  ],
 })
 export class CommentsModule { }
